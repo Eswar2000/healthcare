@@ -1,3 +1,19 @@
+/*Doc Page*/
+.cell {
+    font-family: 'Finger Paint', cursive;
+    color: #50BFE6;
+    border: 4px solid rgb(182, 182, 182);
+    border-top-style: solid;
+    border-top-width: 4px;
+    border-radius: 10px;
+    height: 110px;
+    width: 200px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 body{
 	font-size: 16px;
 	color: #fff;
