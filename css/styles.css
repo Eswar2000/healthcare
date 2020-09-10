@@ -1,0 +1,386 @@
+body{
+	font-size: 16px;
+	color: #fff;
+	background-color: #0B0C10;
+	font-family: 'Oxygen', sans-serif;
+}
+
+/*Header Tag - Common For All HTML Docs*/
+
+#header-nav{
+	background-color: #0B0C10;
+	border-radius: 0;
+	border: 0;
+}
+
+#logo-img{
+	background-image: url('../img/med.jpeg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	border-radius: 150px;
+	width: 150px;
+	height: 150px;
+	margin: 10px 15px 10px 0;
+}
+
+.navbar-brand{
+	padding-top: 25px;
+}
+
+.navbar-brand h1{ 
+	font-family: 'Lora', serif;
+	color: #66FCF1;
+	font-weight: bold;
+	margin-bottom: 0;
+	margin-top: 0;
+	text-shadow: 1px 1px 1px #222;
+	text-transform: uppercase;
+	font-size: 1.5em;
+
+}
+
+.navbar-brand a:hover, .navbar-brand a:focus{
+	text-decoration: none;
+	background-color: #1F2833;
+}
+
+.navbar-brand p{
+	color: #000;
+	text-transform: uppercase;
+	font-size: .7em;
+	margin-top: 15px;
+}
+.navbar-brand p span {
+	vertical-align: middle;
+}
+
+#nav-list{
+	margin-top: 10px;
+}
+
+#nav-list a{
+	color: #66FCF1;
+	text-align: center;
+}
+
+#nav-list a:hover {
+	background: #1F2833;
+}
+
+#nav-list a span{
+	font-size: 1.8em;
+}
+
+#app {
+	margin-top: 5px;
+}
+
+#app a {
+	text-align: right;
+	padding-bottom: 0;
+}
+
+#app div {
+	color: #557c3e;
+	text-align: right;
+	padding-right: 15px;
+}
+
+.navbar-header button.navbar-toggle, .navbar-header .icon-bar {
+	border: 1px solid #61122f;
+}
+
+.navbar-header button.navbar-toggle {
+	clear: both;
+	margin-top: -30px;
+}
+
+/*End Of Header Tag*/
+
+/*Footer Tag - Common For All HTML Doc*/
+
+.panel-footer{
+	margin-top: 30px;
+	padding-top: 35px;
+	padding-bottom: 30px;
+	background-color: #222;
+	border-top: 0;
+}
+.panel-footer div.row{
+	margin-bottom: 35px;
+}
+
+#amenity, #address{
+	line-height: 2;
+}
+#amenity >span,#address > span{
+	font-size: 1.3em;
+}
+#address p{
+	color: #45A29E;
+	font-size: .8em;
+	line-height:1.8em;
+}
+
+/*End Of Header Tag*/
+
+/*For Index.html Page*/
+
+.container .jumbotron {
+	box-shadow: 0 0 50px #3f0c1f;
+	border: 2px solid #3f0c1f;
+}
+
+#doc-tile, #health-tile, #facility-tile{
+	height: 250px;
+	width: 100%;
+	margin-bottom: 15px;
+	position: relative;
+	border: 2px solic #3f0c1f;
+	overflow: hidden;
+}
+
+#doc-tile:hover, #health-tile:hover, #facility-tile:hover{
+	box-shadow: 0 1px 5px 1px #cccccc;
+}
+
+#doc-tile {
+	background: url('../img/doct1.jpg') no-repeat;
+	background-position: center;
+}
+
+#facility-tile {
+	background: url('../img/infra1.jpg') no-repeat;
+	background-position: center;
+}
+
+#health-tile {
+	background: url('../img/hc1.jpg') no-repeat;
+	background-position: center;
+}
+
+#doc-tile span, #health-tile span, #facility-tile span {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 1.6em;
+	text-transform: uppercase;
+	background-color: #000;
+	color: #fff;
+	opacity: .8;	
+}
+
+/*End Of Index.html Page*/
+
+/*For shplogin.html Page*/
+
+#signin {
+	display: none;
+}
+
+#but1, #but2 {
+	margin: 20px;
+	padding: 5px;
+	background-color: #66FCF1;
+	font-size: 25px;
+	font-weight: bolder;
+	width: 8%;
+}
+
+#but1 {
+	margin-left: 40%;
+}
+#but2 {
+	margin-right: 40%;
+}
+
+/*End Of shplogin.html Page*/
+
+
+/*single category*/
+
+.menu-item-tile{
+	margin-bottom: 25px;
+}
+.menu-item-tile hr{
+	width: 80%;
+}
+.menu-item-tile .menu-item-price{
+	font-size:1.1em;
+	text-align: right;
+	/*margin-top: -15px;
+	margin-right: -15px; */
+}
+.menu-item-tile .menu-item-price span {
+	font-size: .6em;
+}
+
+.menu-item-photo{
+	position: relative;
+	border: 2px solid #3f0c1f;
+	overflow: hidden;
+	padding: 0;
+	margin-right: -15px;
+	margin-left: auto;
+	margin-bottom: 20px;
+	max-width: 250px;
+}
+.menu-item-photo div {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 80px;
+	background-color: #557c3e;
+	text-align: center;
+}
+
+.menu-item-description {
+	padding-right: 30px;
+}
+.menu-item-title{
+	margin: 0 0 10px;
+}
+.menu-item-details{
+	font-size: .9em;
+	font-style: italic;
+}
+/*end of single category*/
+
+
+
+/*large devices*/
+@media (min-width: 1200px){
+	.container .jumbotron {
+		background-image: url('../img/jumbotron1.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		height: 650px;
+	}
+	
+
+}
+/*medium device*/
+@media (min-width: 992px) and (max-width: 1199px){
+
+	.container .jumbotron {
+		background-image: url('../img/jumbotron1.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		height: 558px;
+	}
+
+}
+/*small devices*/
+@media (min-width: 768px) and (max-width: 991px){
+	.container .jumbotron {
+		background: url('../img/jumbotron1.jpg') no-repeat;
+		height: 432px;
+	}
+
+}
+
+
+/*HOME PAGE*//*extra small devices*/
+@media (max-width: 767px){
+	/*Header*/
+	.navbar-brand{
+		padding-top: 10px;
+		height: 80px;
+	}
+
+	.navbar-brand h1{
+		padding-top: 10px;
+		font-size: 5vw;
+	}
+
+	.navbar-brand p{
+		font-size: .6em;
+		margin-top: 12px;
+	}
+
+	.navbar-brand p img{
+		height:20px;
+	}
+
+	#collapsable-nav a{
+		font-size: 1.2em;
+	}
+
+	#collapsable-nav a span{
+		font-size: 1em;
+		margin-right: 5px;
+	}
+
+	#call-btn > a {
+		font-size: 1.5em;
+		display: block;
+		margin: 0 20px;
+		padding: 10px;
+		border: 2px solid #fff;
+		background-color: #1F2833;
+		color: #66FCF1;
+	}
+
+	#xs-deliver {
+		margin-top: 5px;
+		font-size: .7em;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+	}
+
+	.container .jumbotron {
+		margin-top: 30px;
+		padding: 0; 
+	}
+
+	#doc-tile , #health-tile,#facility-tile{
+		width: 360px;
+		margin: 0 auto 15px;
+	}
+
+	/*footer*/
+	.panel-footer section{
+		margin-bottom: 30px;
+		text-align: center;
+	}
+	.panel-footer section:nth-child(3){
+		margin-bottom: 0;
+	}
+	.panel-footer section hr{
+		width: 50%;
+	}
+	.menu-item-photo{
+		margin-right: auto;
+	}
+	.menu-item-tile .menu-item-price{
+		text-align: center;
+		margin-bottom: 10px;
+	}
+	.menu-item-description{
+		text-align: center;
+	}
+} 
+/*super extra small*/
+@media (max-width: 479px){
+	.navbar-brand h1 {
+		padding-top: 5px;
+		font-size: 6vw;
+	}
+	#menu-tile, #specials-tile {
+		width: 280px;
+		margin-bottom: 0 auto 15px;
+	}
+	.col-xxs-12{
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+		width: 100%;
+		float: left;
+	}
+}
