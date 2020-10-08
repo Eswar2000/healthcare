@@ -38,5 +38,17 @@ function viewOrder(){
     document.getElementById("supply").style.display = "block";
 }
 function addMed(){
-    window.location.href = "https://www.google.com";
+    window.location.href = "addToStock.html";
+}
+function stockCancel(){
+    if(window.confirm("Cancel the Process ?")){
+        window.alert("Cancelled");
+        window.location.href = "pharma.html";
+    }
+}
+function addStock(){
+    if(window.confirm("Confirm?")){
+        window.alert("Added");
+        window.location.href = "pharma.html";
+    }
 }
