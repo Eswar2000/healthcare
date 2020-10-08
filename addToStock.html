@@ -57,19 +57,19 @@
             <div class="form-group row">
                 <label for="drugName" class="col-sm-2 col-form-label">Medicine Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name" required>
+                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name" pattern="[A-Za-z]" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="drugPrice" class="col-sm-2 col-form-label">Medicine Price</label>
                 <div class="col-sm-10">
-                  <input type="number" step="0.01" class="form-control" id="drugPrice" placeholder="Enter Medicine Price" required>
+                  <input type="number" step="0.01" class="form-control" id="drugPrice" placeholder="Enter Medicine Price" pattern="[0-9]" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="drugCount" class="col-sm-2 col-form-label">Medicine Count</label>
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" id="drugCount" placeholder="Enter Medicine Count" required>
+                  <input type="number" class="form-control" id="drugCount" placeholder="Enter Medicine Count" pattern="[0-9]" required>
                 </div>
             </div>
             <div class="form-group row">

@@ -1,0 +1,2 @@
+Room allocate - on click
+Room search -  patterns aint working properly. dk why will check again
