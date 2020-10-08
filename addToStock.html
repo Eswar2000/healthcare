@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge">
 	<meta name="viewport" content="width=device-width initial-scale=1">
-	<title>Pharmacist</title>
+	<title>AddToStock</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
@@ -53,57 +53,36 @@
 	</header>
 
 	<div id="main-content" class="container">
-
-		<h2>Welcome Pharmacist</h2>
-		<div class="container">
-			<button type="button" id="buyMed" class="btn btn-default" onclick="viewPresc()">Add Stock</button>
-			<button type="button" id="supMed" class="btn btn-default" onclick="viewOrder()">Prescription</button>
-			<br>
-			<div id="order">
-				<table id="table1">
-					<thead>
-						<td class="cell">Medicine Name</td>
-						<td class="cell">Medicine Count</td>
-						<td class="cell">Delete</td>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="cell">Some Medicine</td>
-							<td class="cell">Some Amount</td>
-							<td class="cell"><button type="submit"class="btn btn-primary">Delete</button></td>
-						</tr>
-					</tbody>
-				</table>
-				<br>
-				<button type="button" id="buyMed" class="btn btn-default" onclick="addMed()">Add Medicine</button>
-				<button type="submit" class="btn btn-primary">Add To Inventory</button>
-			</div>
-
-			<div id="supply">
-				<form>
-					<div class="form-group row">
-						<label for="patentID" class="col-sm-2 col-form-label">Patient ID</label>
-						<div class="col-sm-10">
-						  <input type="text" class="form-control" id="patientID" placeholder="Enter Patient ID">
-						</div>
-					</div>
-					
-					<div class="form-group row">
-						<label for="dateIssue" class="col-sm-2 col-form-label">Date Issued</label>
-						<div class="col-sm-10">
-						  <input type="text" class="form-control" id="dateIssue" placeholder="Enter Date Issued">
-						</div>
-					</div>
-					<div class="form-group row">
-						<div class="col-sm-10">
-							<button type="submit" id="issued" class="btn btn-primary">Get Prescription</button>
-						</div>
-					</div>
-				</form>
-				
-			</div>
-			
-		</div>
+        <form>
+            <div class="form-group row">
+                <label for="drugName" class="col-sm-2 col-form-label">Medicine Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="drugPrice" class="col-sm-2 col-form-label">Medicine Price</label>
+                <div class="col-sm-10">
+                  <input type="number" step="0.01" class="form-control" id="drugPrice" placeholder="Enter Medicine Price">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="drugCount" class="col-sm-2 col-form-label">Medicine Count</label>
+                <div class="col-sm-10">
+                  <input type="number" class="form-control" id="drugCount" placeholder="Enter Medicine Count">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="form-group col-sm-6">
+                    <label for="drugMfDate" class="control-label">Manufacture Date</label>
+                    <input type="date" class="form-control" id="drugMfDate" placeholder="Enter Manufacture Date">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="drugExpDate" class="control-label">Expiry Date</label>
+                    <input type="date" class="form-control" id="drugExpDate" placeholder="Enter Expiry Date">
+                </div>
+            </div>
+        </form>
 	</div><!--End of #main-content -->
 
 	<footer class="panel-footer">
