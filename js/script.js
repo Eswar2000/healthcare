@@ -16,9 +16,11 @@ function myTimer() {
 }
 var myVar = setInterval(myTimer, 1000);
 
-let n =  new Date();
-m = n.getMonth() + 1;
-document.getElementById("date1").innerHTML = n.getDate() + " / " + m + " / " + n.getFullYear();
+function onCreatePresLoad(){
+    let n =  new Date();
+    m = n.getMonth() + 1;
+    document.getElementById("date1").innerHTML = n.getDate() + " / " + m + " / " + n.getFullYear();
+}
 
 function roomAllocation() {
     let string = "Patient Alloacated Room No : "+ Math.floor((Math.random() * 10) + 1);
@@ -26,7 +28,8 @@ function roomAllocation() {
 }
 
 function roomSearch() {
-    alert("Room details Found : ");
+    console.log("Came Here");
+    window.alert("Room details Found : ");
 }
 
 function viewPresc(){
