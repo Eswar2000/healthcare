@@ -52,3 +52,9 @@ function addStock(){
         window.location.href = "pharma.html";
     }
 }
+function returnToStock(){
+    window.location.href = "pharma.html";
+}
+function roomSearch(){
+    window.location.href = "roomSearch.html";
+}

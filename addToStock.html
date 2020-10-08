@@ -31,12 +31,12 @@
       			<div id="collapsable-nav" class="collapse navbar-collapse">
       				<ul id="nav-list" class="nav navbar-nav navbar-right">
       					<li class="visible-xs">
-      						<a href="#">
+      						<a href="index.html">
       						<span class="glyphicon glyphicon-home">Home</span>
       						</a>
       					</li>
       					<li>
-      						<a href="#">
+      						<a href="index.html">
       							<span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">Logout
       						</a>
       					</li>
@@ -53,38 +53,40 @@
 	</header>
 
 	<div id="main-content" class="container">
-        <form>
+        <form  onsubmit="addStock()">
             <div class="form-group row">
                 <label for="drugName" class="col-sm-2 col-form-label">Medicine Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name">
+                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="drugPrice" class="col-sm-2 col-form-label">Medicine Price</label>
                 <div class="col-sm-10">
-                  <input type="number" step="0.01" class="form-control" id="drugPrice" placeholder="Enter Medicine Price">
+                  <input type="number" step="0.01" class="form-control" id="drugPrice" placeholder="Enter Medicine Price" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="drugCount" class="col-sm-2 col-form-label">Medicine Count</label>
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" id="drugCount" placeholder="Enter Medicine Count">
+                  <input type="number" class="form-control" id="drugCount" placeholder="Enter Medicine Count" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="form-group col-sm-6">
                     <label for="drugMfDate" class="control-label">Manufacture Date</label>
-                    <input type="date" class="form-control" id="drugMfDate" placeholder="Enter Manufacture Date">
+                    <input type="date" class="form-control" id="drugMfDate" placeholder="Enter Manufacture Date" required> 
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="drugExpDate" class="control-label">Expiry Date</label>
-                    <input type="date" class="form-control" id="drugExpDate" placeholder="Enter Expiry Date">
+                    <input type="date" class="form-control" id="drugExpDate" placeholder="Enter Expiry Date" required>
                 </div>
-            </div>
+			</div>
+			<button type="submit" class="btn btn-primary" value="Submit">Add</button>
+			<button type="button" class="btn btn-primary" onclick="stockCancel()">Cancel</button>
+			<button type="button" class="btn btn-primary" onclick="returnToStock()">Return</button>
         </form>
-		<button type="Submit" class="btn btn-default" onclick="addStock()">Add</button>
-        <button type="button" class="btn btn-default" onclick="stockCancel()">Cancel</button>
+		
 	</div><!--End of #main-content -->
 
 	<footer class="panel-footer">
