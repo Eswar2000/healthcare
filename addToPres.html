@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge">
 	<meta name="viewport" content="width=device-width initial-scale=1">
-	<title>AddToStock</title>
+	<title>AddToPrescription</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
@@ -53,38 +53,22 @@
 	</header>
 
 	<div id="main-content" class="container">
-        <form  onsubmit="addStock()">
+        <form  onsubmit="addPres()">
             <div class="form-group row">
                 <label for="drugName" class="col-sm-2 col-form-label">Medicine Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name" required>
+                  <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name"  required>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="drugPrice" class="col-sm-2 col-form-label">Medicine Price</label>
+                <label for="Dosage" class="col-sm-2 col-form-label">Dosage</label>
                 <div class="col-sm-10">
-                  <input type="number" step="0.01" class="form-control" id="drugPrice" placeholder="Enter Medicine Price" pattern="[0-9]" required>
+                  <input type="text" class="form-control" id="Dosage" placeholder="Enter Dosage" required>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="drugCount" class="col-sm-2 col-form-label">Medicine Count</label>
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" id="drugCount" placeholder="Enter Medicine Count" pattern="[0-9]" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="form-group col-sm-6">
-                    <label for="drugMfDate" class="control-label">Manufacture Date</label>
-                    <input type="date" class="form-control" id="drugMfDate" placeholder="Enter Manufacture Date" required> 
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="drugExpDate" class="control-label">Expiry Date</label>
-                    <input type="date" class="form-control" id="drugExpDate" placeholder="Enter Expiry Date" required>
-                </div>
-			</div>
 			<button type="submit" class="btn btn-primary" value="Submit">Add</button>
-			<button type="button" class="btn btn-primary" onclick="stockCancel()">Cancel</button>
-			<button type="button" class="btn btn-primary" onclick="returnToStock()">Return</button>
+			<button type="button" class="btn btn-primary" onclick="presCancel()">Cancel</button>
+			<button type="button" class="btn btn-primary" onclick="returnToPres()">Return</button>
         </form>
 		
 	</div><!--End of #main-content -->

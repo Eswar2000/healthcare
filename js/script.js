@@ -61,3 +61,16 @@ function returnToStock(){
 function roomSearch(){
     window.location.href = "roomSearch.html";
 }
+function returnToPres(){
+    window.location.href = "createPres.html";
+}
+function presCancel(){
+    if(window.confirm("Cancel the Process ?")){
+        window.alert("Cancelled");
+        window.location.href = "createPres.html";
+    }
+}
+
+function addPres(){
+    window.location.href = "createPres.html";
+}
