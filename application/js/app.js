@@ -2,6 +2,7 @@ const mysql = require('mysql')
 const express = require('express')
 const app = express()
 const port = 3000
+const path = require('path')
 
 const dbConnect = mysql.createConnection({
     host:'localhost',
@@ -19,7 +20,10 @@ dbConnect.connect(function(error){
 })
 
 app.get("/",(req,res) =>{
-    res.send('<h1> Hello </h1>');
+    var options = { 
+        root: path.join(__dirname) 
+    }; 
+    res.sendFile("../index.html",options)
     dbConnect.query("SELECT * from Location where pincode = '600001'",function(error,rows,fields){
         //callback
         if(!!error)
