@@ -57,6 +57,19 @@ app.post('/shplogin/signinpat',function(req,res,next){
     })
 });
 
+app.post('/shplogin/signuppat',function(req,res,next){
+    const userDetails = req.body;
+    console.log(userDetails);
+    let id = 'A000101'
+    var qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientDOB+"', '"+userDetails.patientPwd+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"')";
+    dbConnect.query(qry,function(error){
+    if(!!error)
+        console.log('Error');
+    else 
+        console.log('Success'); 
+    })
+});
+
 
 app.listen(port,() => {
     console.log("Port 3000 Accessed");
