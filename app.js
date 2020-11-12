@@ -1,9 +1,9 @@
-const mysql = require('mysql')
-const express = require('express')
+const mysql = require('mysql');
+const express = require('express');
 const bodyParser = require('body-parser');
-const app = express()
-const port = 3000
-const path = require('path')
+const app = express();
+const port = 3000;
+const path = require('path');
 
 
 const dbConnect = mysql.createConnection({
