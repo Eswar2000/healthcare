@@ -92,9 +92,16 @@
 				</div>
 
 				<div class="form-group row">
-					<label for="patientPwd" class="col-sm-2 col-form-label">Patient Password</label>
+					<label for="patientGender" class="col-sm-2 col-form-label">Patient Gender</label>
 					<div class="col-sm-10">
-					  <input type="password" class="form-control" id="patientPwd" name="patientPwd" placeholder="Enter Patient Password" pattern=".{8,}" required>
+					  <input type="text" class="form-control" id="patientGender" name="patientGender" placeholder="Enter Patient Gender" pattern="[M,F]{1}" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientPhone" class="col-sm-2 col-form-label">Patient Phone</label>
+					<div class="col-sm-10">
+					  <input type="number" class="form-control" id="patientPhone" name="patientPhone" placeholder="Enter Patient Phone" pattern="[0-9]{10}" required>
 					</div>
 				</div>
 
@@ -116,6 +123,13 @@
 					<label for="patientPincode" class="col-sm-2 col-form-label">Patient Pincode</label>
 					<div class="col-sm-10">
 					  <input type="text" class="form-control" id="patientPincode" name="patientPincode" placeholder="Enter Patient Pincode"  pattern="[0-9]{6}" title='length 6(only numbers)' required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientPwd" class="col-sm-2 col-form-label">Patient Password</label>
+					<div class="col-sm-10">
+					  <input type="password" class="form-control" id="patientPwd" name="patientPwd" placeholder="Enter Patient Password" pattern=".{8,}" required>
 					</div>
 				</div>
 

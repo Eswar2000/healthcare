@@ -50,24 +50,33 @@ app.post('/shplogin/signinpat',function(req,res,next){
     var qry = str1.concat(userDetails.patientID);
     var qry = qry.concat(str2);
     dbConnect.query(qry,function(error,rows,fields){
-    if(!!error)
-        console.log('Error');
-    else 
-        console.log(rows[0].pPwd == userDetails.patientPwd); 
+        if(!!error)
+            console.log('Error');
+        else 
+            console.log(rows[0].pPwd == userDetails.patientPwd); 
     })
 });
 
 app.post('/shplogin/signuppat',function(req,res,next){
     const userDetails = req.body;
     console.log(userDetails);
-    let id = 'A000101'
-    var qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientDOB+"', '"+userDetails.patientPwd+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"')";
-    dbConnect.query(qry,function(error){
-    if(!!error)
-        console.log('Error');
-    else 
-        console.log('Success'); 
+    let id = 'A000102'
+    var qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientGender+"', '"+userDetails.patientPhone+"', '"+userDetails.patientDOB+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"', '"+userDetails.patientPwd+"')";
+    console.log(qry);
+    dbConnect.query("select max(pId) as pID from patient;",function(error,rows,fields){
+        if(!!error)
+            console.log('Error');
+        else 
+            console.log(rows[0].pID); 
     })
+    // dbConnect.query(qry,function(error){
+    // if(!!error)
+    //     console.log('Error');
+    // else 
+    //     console.log('Success'); 
+    // })
+    var sendId = "<script> alert('Your Id is : " + id + "') </script>"
+    res.send(sendId)
 });
 
 
