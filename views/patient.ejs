@@ -1,0 +1,106 @@
+<div id="main-content" class="container">
+
+    <h2>Welcome Patient</h2>
+    <div class="container">
+        <button type="button" id="appBtn" class="btn btn-default" onclick="bookApp()">Book Appointment</button>
+        <button type="button" id="viewHistBtn" class="btn btn-default" onclick="showHist()">View History</button>
+        <button type="button" id="viewPrescBtn" class="btn btn-default" onclick="showPresc()">View Prescriptions</button>
+        <br>
+        
+        <div id="booking">
+
+            <form>
+
+                <div class="form-group row">
+                    <label for="appDate" class="col-sm-2 col-form-label">Date Of Appointment</label>
+                    <div class="col-sm-10">
+                      <input type="date" class="form-control" id="appDate" placeholder="DD-MM-YYYY">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="appTime" class="col-sm-2 col-form-label">Time Of Appointment</label>
+                    <div class="col-sm-10">
+                      <input type="time" class="form-control" id="appTime" placeholder="HH:MM">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="appReason" class="col-sm-2 col-form-label">Reason</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="appReason" placeholder="Enter Your Reason">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" id="issued" class="btn btn-primary">Request Appointment</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div id="prescList">
+            <table id="table1">
+                <thead>
+                    <td class="cell">Date Of Appointment</td>
+                    <td class="cell">Doctor ID</td>
+                    <td class="cell">Prescription</td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="cell">Some Date</td>
+                        <td class="cell">Some Doctor</td>
+                        <td class="cell"><button type="submit"class="btn btn-primary">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <button type="button" class="btn btn-default">Close</button>
+            
+        </div>
+
+        <div id="history">
+            <table id="table2">
+                <thead>
+                    <td class="cell">Date Of Appointment</td>
+                    <td class="cell">Doctor ID</td>
+                    <td class="cell">Treatment</td>
+                    <td class="cell">Charges</td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="cell">Some Date</td>
+                        <td class="cell">Some Doctor</td>
+                        <td class="cell">Some Price</td>
+                        <td class="cell">Some Price</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <button type="button" class="btn btn-default">Close</button>
+            
+        </div>
+        
+    </div>
+    <script>
+        function bookApp(){
+            document.getElementById("prescList").style.display = "none";
+            document.getElementById("booking").style.display = "block";
+            document.getElementById("history").style.display = "none";
+        }
+        function showPresc(){
+            document.getElementById("booking").style.display = "none";
+            document.getElementById("prescList").style.display = "block";
+            document.getElementById("history").style.display = "none";
+        }
+        function showHist(){
+            document.getElementById("booking").style.display = "none";
+            document.getElementById("prescList").style.display = "none";
+            document.getElementById("history").style.display = "block";
+        }
+    </script>	
+
+
+</div><!--End of #main-content -->

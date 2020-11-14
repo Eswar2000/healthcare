@@ -63,7 +63,7 @@ app.post('/shplogin/signuppat',function(req,res,next){
     let id = 'A000102'
     var qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientGender+"', '"+userDetails.patientPhone+"', '"+userDetails.patientDOB+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"', '"+userDetails.patientPwd+"')";
     console.log(qry);
-    dbConnect.query("select max(pId) as pID from patient;",function(error,rows,fields){
+    dbConnect.query("select max(pID) as pID from patient;",function(error,rows,fields){
         if(!!error)
             console.log('Error');
         else 

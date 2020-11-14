@@ -1,0 +1,20 @@
+<div id="main-content" class="container">
+    <form  onsubmit="addPres()">
+        <div class="form-group row">
+            <label for="drugName" class="col-sm-2 col-form-label">Medicine Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="drugName" placeholder="Enter Medicine Name"  required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="Dosage" class="col-sm-2 col-form-label">Dosage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="Dosage" placeholder="Enter Dosage" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Submit">Add</button>
+        <button type="button" class="btn btn-primary" onclick="presCancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="returnToPres()">Return</button>
+    </form>
+    
+</div><!--End of #main-content -->

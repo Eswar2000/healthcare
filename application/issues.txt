@@ -1,2 +1,0 @@
-Room allocate - on click ----- Done working properly now
-Room search -  patterns aint working properly. dk why will check again  ----- Issue Resolved
