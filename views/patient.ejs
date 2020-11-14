@@ -1,6 +1,6 @@
 <div id="main-content" class="container">
 
-    <h2>Welcome Patient</h2>
+    <h2>Welcome <%=pName[0].PName%></h2>
     <div class="container">
         <button type="button" id="appBtn" class="btn btn-default" onclick="bookApp()">Book Appointment</button>
         <button type="button" id="viewHistBtn" class="btn btn-default" onclick="showHist()">View History</button>
@@ -49,11 +49,13 @@
                     <td class="cell">Prescription</td>
                 </thead>
                 <tbody>
+                    <%plist.forEach(function(entry) {%>
                     <tr>
-                        <td class="cell">Some Date</td>
-                        <td class="cell">Some Doctor</td>
+                        <td class="cell"><%=String(entry.appDateTime).substring(0,10)%></td>
+                        <td class="cell"><%=entry.dID%></td>
                         <td class="cell"><button type="submit"class="btn btn-primary">View</button></td>
                     </tr>
+                    <%});%>
                 </tbody>
             </table>
             <br>
@@ -70,12 +72,14 @@
                     <td class="cell">Charges</td>
                 </thead>
                 <tbody>
+                    <%hist.forEach(function(entry) {%>
                     <tr>
-                        <td class="cell">Some Date</td>
-                        <td class="cell">Some Doctor</td>
-                        <td class="cell">Some Price</td>
-                        <td class="cell">Some Price</td>
+                        <td class="cell"><%=String(entry.appDateTime).substring(0,10)%></td>
+                        <td class="cell"><%=entry.did%></td>
+                        <td class="cell"><%=entry.disease%></td>
+                        <td class="cell"><%=entry.amount%></td>
                     </tr>
+                    <%});%>
                 </tbody>
             </table>
             <br>

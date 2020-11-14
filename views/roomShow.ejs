@@ -12,13 +12,15 @@
                 <td class="cell">Expected Out Date</td>
             </thead>
             <tbody>
+                <%roomhist.forEach(function(entry) {%>
                 <tr>
-                    <td class="cell">Some Number</td>
-                    <td class="cell">Some Type</td>
-                    <td class="cell">Some Name</td>
-                    <td class="cell">Some Date</td>
-                    <td class="cell">Some Date</td>
+                    <td class="cell"><%=entry.rNo%></td>
+                    <td class="cell"><%=entry.rType%></td>
+                    <td class="cell"><%=entry.PName%></td>
+                    <td class="cell"><%=String(entry.rInDate).substring(0,10)%></td>
+                    <td class="cell"><%=String(entry.rOutDate).substring(0,10)%></td>
                 </tr>
+                <%});%>
             </tbody>
         </table>
         <br>

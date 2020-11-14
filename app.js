@@ -4,13 +4,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 const path = require('path');
-
+app.set('layout','layout/layout')
 
 const dbConnect = mysql.createConnection({
     host:'localhost',
     port: 3306,
     user: 'root',
-    password: 'pieceofshit',
+    password: 'Thestylishstar1',
     database: 'healthcare'
 });
 
@@ -21,15 +21,13 @@ dbConnect.connect(function(error){
         console.log("Connection Successful");
 })
 
-app.use('/', express.static(__dirname + '/application'));
+app.use('/', express.static(__dirname + '/public'));
+app.use('view engine','ejs')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.static('public'));
 app.get("/",(req,res) =>{
-    var options = { 
-        root: path.join(__dirname) 
-    }; 
-    res.sendFile("application/index.html",options)
+    res.render("index")
     dbConnect.query("SELECT * from Location where pincode = '600001'",function(error,rows,fields){
         //callback
         if(!!error)
@@ -79,6 +77,55 @@ app.post('/shplogin/signuppat',function(req,res,next){
     res.send(sendId)
 });
 
+app.get('/patient',function(req,res){
+    var presList;
+    var pName;
+    var hist; 
+    dbConnect.query("select dID,pID,appDateTime,reason from appointment natural join patient where pid = 'A000001';",function(error,rows,fields){
+        if(!!error)
+            console.log("error");
+        else{
+            presList = (JSON.parse(JSON.stringify(rows)));
+            console.log(presList);
+            dbConnect.query("select pid,did,appDateTime,amount,disease from bill natural join treatment where pID = 'A000001';",function(error,rows,fields){
+                if(!!error)
+                    console.log("error");
+                else{
+                    hist = (JSON.parse(JSON.stringify(rows)));
+                    console.log(hist);
+                    dbConnect.query("select pFname as PName from patient where pid='A000001';",function(error,rows,fields){
+                        if(!!error)
+                            console.log(error);
+                        else{
+                            pName = (JSON.parse(JSON.stringify(rows)));
+                            console.log(pName);
+                            res.render('patient.ejs',{
+                                plist : presList,
+                                hist : hist,
+                                pName : pName
+                            })
+                        }
+                    })
+                }
+            })  
+        }
+    })
+});
+
+app.get('/roomshow',function(req,res){
+    var roomhist;
+    dbConnect.query("SELECT rNo,rType,concat(concat(pFname,' '),pLname) as PName,rInDate,rOutDate FROM healthcare.roomrecord natural join rooms natural join patient;",function(error,rows,fields){
+        if(!!error)
+            console.log("error");
+        else{
+            roomhist = (JSON.parse(JSON.stringify(rows)));
+            console.log(roomhist);
+            res.render('roomshow.ejs',{
+                roomhist : roomhist
+            })
+        }
+    })
+})
 
 app.listen(port,() => {
     console.log("Port 3000 Accessed");
