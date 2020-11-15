@@ -1,80 +1,70 @@
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 const mysql = require('mysql');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
-const path = require('path');
-app.set('layout','layout/layout')
-
 const dbConnect = mysql.createConnection({
     host:'localhost',
     port: 3306,
     user: 'root',
-    password: 'Thestylishstar1',
+    password: process.env.DB_PW,
     database: 'healthcare'
 });
-
+let patientDetails = null
+let doctorDetails = null
 dbConnect.connect(function(error){
     if(!!error)
         console.log("Connection Error");
     else 
         console.log("Connection Successful");
 })
-
-app.use('/', express.static(__dirname + '/public'));
-app.use('view engine','ejs')
+app.use("/public",express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(express.static('public'));
 app.get("/",(req,res) =>{
-    res.render("index")
-    dbConnect.query("SELECT * from Location where pincode = '600001'",function(error,rows,fields){
-        //callback
-        if(!!error)
-            console.log('Error');
-        else 
-            console.log(rows);
-    });
+    res.render('index.ejs')
 })
 app.get('/shplogin', function(req, res, next) { 
     res.render('shplogin.ejs')
     });
 
+app.get('/logout',function(req,res,next){
+    patientDetails = null
+    doctorDetails = null
+    res.redirect('/')
+})
+
 app.post('/shplogin/signinpat',function(req,res,next){
     const userDetails = req.body;
     console.log(userDetails);
-    var str1 = "Select pPwd from patient where pID = '";
-    var str2 = "'"
-    var qry = str1.concat(userDetails.patientID);
-    var qry = qry.concat(str2);
+    var qry = "Select pPwd from patient where pID = '"+userDetails.patientID+"'"
     dbConnect.query(qry,function(error,rows,fields){
         if(!!error)
             console.log('Error');
-        else 
-            console.log(rows[0].pPwd == userDetails.patientPwd); 
+        if(rows[0] !== null)
+            if(rows[0].pPwd == userDetails.patientPwd){
+                patientDetails = JSON.parse(JSON.stringify(rows[0]))
+            } 
     })
 });
 
-app.post('/shplogin/signuppat',function(req,res,next){
+app.post('/shplogin/signuppat',function(req,res){
     const userDetails = req.body;
     console.log(userDetails);
-    let id = 'A000102'
+    let id = 'A000202'
     var qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientGender+"', '"+userDetails.patientPhone+"', '"+userDetails.patientDOB+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"', '"+userDetails.patientPwd+"')";
     console.log(qry);
-    dbConnect.query("select max(pID) as pID from patient;",function(error,rows,fields){
+    dbConnect.query(qry,function(error){
         if(!!error)
             console.log('Error');
         else 
-            console.log(rows[0].pID); 
+            console.log('Success'); 
     })
-    // dbConnect.query(qry,function(error){
-    // if(!!error)
-    //     console.log('Error');
-    // else 
-    //     console.log('Success'); 
-    // })
-    var sendId = "<script> alert('Your Id is : " + id + "') </script>"
-    res.send(sendId)
+    res.redirect('/shplogin')
 });
 
 app.get('/patient',function(req,res){

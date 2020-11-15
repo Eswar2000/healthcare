@@ -1,29 +1,105 @@
-<div id="main-content" class="container">
-    <h2>Welcome Employee</h2>
-    <div class="row">
-        <h2>All Rooms</h2>
-        <br>
-        <table>
-            <thead>
-                <td class="cell">Room No</td>
-                <td class="cell">Type</td>
-                <td class="cell">Patient Name</td>
-                <td class="cell">In Date</td>
-                <td class="cell">Expected Out Date</td>
-            </thead>
-            <tbody>
-                <%roomhist.forEach(function(entry) {%>
-                <tr>
-                    <td class="cell"><%=entry.rNo%></td>
-                    <td class="cell"><%=entry.rType%></td>
-                    <td class="cell"><%=entry.PName%></td>
-                    <td class="cell"><%=String(entry.rInDate).substring(0,10)%></td>
-                    <td class="cell"><%=String(entry.rOutDate).substring(0,10)%></td>
-                </tr>
-                <%});%>
-            </tbody>
-        </table>
-        <br>
-        <button type="submit" class="btn btn-primary" onclick="roomSearch()">Search</button>
-    </div>	
-</div><!--End of #main-content -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width initial-scale=1">
+	<title>All Rooms</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/style1.css">
+	<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<nav id="header-nav" class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a href="/" class="pull-left visible-md visible-lg">
+						<div id="logo-img" alt="Logo image"></div>
+					</a>
+					<div class="navbar-brand">
+						<a href="/"><h1>Healthcare</h1></a>
+					</div>
+					
+      			</div>
+      			<div id="collapsable-nav" class="collapse navbar-collapse">
+      				<ul id="nav-list" class="nav navbar-nav navbar-right">
+						<li>
+							<h3 id="date"></h3>
+							<h5 id="time"></h5>
+						</li>  
+      				</ul>
+      			</div>
+      		</div>
+		</nav>
+	</header>
+	<div id="main-content" class="container">
+		<h2>Welcome Employee</h2>
+		<div class="row">
+            <h2>All Rooms</h2>
+			<br>
+			<table>
+				<thead>
+					<td class="cell">Room No</td>
+					<td class="cell">Type</td>
+					<td class="cell">Patient Name</td>
+					<td class="cell">In Date</td>
+					<td class="cell">Expected Out Date</td>
+				</thead>
+				<tbody>
+                    <%roomhist.forEach(function(entry) {%>
+					<tr>
+						<td class="cell"><%=entry.rNo%></td>
+						<td class="cell"><%=entry.rType%></td>
+						<td class="cell"><%=entry.PName%></td>
+						<td class="cell"><%=String(entry.rInDate).substring(0,10)%></td>
+                        <td class="cell"><%=String(entry.rOutDate).substring(0,10)%></td>
+                    </tr>
+                    <%});%>
+				</tbody>
+			</table>
+			<br>
+			<button type="submit" class="btn btn-primary" onclick="roomSearch()">Search</button>
+		</div>	
+	</div><!--End of #main-content -->
+
+	<footer class="panel-footer">
+		<div class="container">
+			<div class="row">
+				<section id="hours" class="col-sm-6">
+					<span>Amenities:</span><br>
+					Emergency Care 24/7<br>
+					Advanced Equipments<br>
+					Support And Help Through Calls
+					<hr class="visible-xs">
+				</section>
+				<section id="address" class="col-sm-6">
+					<span>Address:</span><br>
+					Smart Healthcare Provider,<br> 
+					Phase 1, Process House, S.B. Road<br>
+					Mumbai, Maharashtra 400013, India
+					<p>*Medicine delivery area within 3-4 miles, with minimum order of Rs.500 plus Rs.50 charge for all deliveries.</p>
+					<hr class="visible-xs">
+				</section>
+			</div>
+			<div class="text-center">&copy; Copyright SQLInjectors 2020</div>	
+		</div>
+		
+	</footer>
+<script>
+    function myTimer() {
+        let n =  new Date();
+        m = n.getMonth() + 1;
+        document.getElementById("date").innerHTML = n.getDate() + " / " + m + " / " + n.getFullYear();
+        document.getElementById("time").innerHTML = n.toLocaleTimeString()
+    }
+    var myVar = setInterval(myTimer, 1000);
+</script>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

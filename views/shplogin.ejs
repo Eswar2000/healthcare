@@ -1,97 +1,208 @@
-<div id="main-content" class="container">
-	<button type="button" id="but1" class="btn btn-default" onclick="viewSignIn()">Signin</button>
-	<button type="button" id="but2" class="btn btn-default" onclick="viewSignUp()">Signup</button>
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		
-		<form  id="signup" action="application/signuppat" method="POST">	
-			<div class="form-group row">
-				<label for="patientFname" class="col-sm-2 col-form-label">Patient First Name</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" id="patientFname" placeholder="Enter Patient First Name" pattern="[A-Za-z]{1,15}" title="No's cant be used" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientLname" class="col-sm-2 col-form-label">Patient Last Name</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" id="patientLname" placeholder="Enter Patient Last Name" pattern="[A-Za-z]{1,15}" title="No's cant be used" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientDOB" class="col-sm-2 col-form-label">Patient DOB</label>
-				<div class="col-sm-10">
-				  <input type="date" class="form-control" id="patientDOB" placeholder="Enter Patient DOB" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientPwd" class="col-sm-2 col-form-label">Patient Password</label>
-				<div class="col-sm-10">
-				  <input type="password" class="form-control" id="patientPwd" placeholder="Enter Patient Password" pattern=".{8,}" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientDoor" class="col-sm-2 col-form-label">Patient Door No</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" id="patientDoor" placeholder="Enter Patient Door No" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientStreet" class="col-sm-2 col-form-label">Patient Street</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" id="patientStreet" placeholder="Enter Patient Street" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientPincode" class="col-sm-2 col-form-label">Patient Pincode</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" id="patientPincode" placeholder="Enter Patient Pincode"  pattern="[0-9]{6}" title='length 6(only numbers)' required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<div class="col-sm-10">
-					<button type="submit" class="btn btn-primary ">Sign up</button>
-				</div>
-			</div>
-		  </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="shortcut icon" href="/">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width initial-scale=1">
+	<title>SHP Login</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<nav id="header-nav" class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a href="/" class="pull-left visible-md visible-lg">
+						<div id="logo-img" alt="Logo image"></div>
+					</a>
+					<div class="navbar-brand">
+						<a href="/"><h1>Healthcare</h1></a>
+					</div>
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+        				<span class="sr-only">Toggle navigation</span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+      				</button>
+      			</div>
+      			<div id="collapsable-nav" class="collapse navbar-collapse">
+      				<ul id="nav-list" class="nav navbar-nav navbar-right">
+      					<li class="visible-xs">
+      						<a href="#">
+      						<span class="glyphicon glyphicon-home">Home</span>
+      						</a>
+      					</li>
+      					<li>
+      						<a href="#">
+      							<span class="glyphicon glyphicon-log-in"></span><br class="hidden-xs">Login
+      						</a>
+      					</li>
+      					<li>
+      						<a href="#">
+      							<span class="glyphicon glyphicon-info-sign"></span><br class="hidden-xs">About
+      						</a>
+      					</li>
+      					<li id="app" class="hidden-xs">
+							<a href="#">
+								<span>Book Appointment</span>
+							</a><div>* We Care For Your Care</div>
+      						
+      					</li>
+      				</ul>
+      				
+      			</div>
+      		</div>
+		</nav>
+	</header>
+	<div id="call-btn" class="visible-xs">
+		<a class="btn">
+			Book Appointment
+		</a>
 	</div>
-
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<form  id="signin" action="signinpat" method="POST">
-			<div class="form-group row">
-				<label for="patentID" class="col-sm-2 col-form-label">Patient ID</label>
-				<div class="col-sm-10">
-				  <input type="text" class="form-control" id="patientID" name="patientID" placeholder="Enter Patient ID" pattern="[A-M]{1}[0-9]{6}" required>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="patientPwd" class="col-sm-2 col-form-label">Patient Password</label>
-				<div class="col-sm-10">
-				  <input type="password" class="form-control" id="patientPwd" name="patientPwd" placeholder="Enter Patient Password" pattern=".{8,}" title ="Check again, either the password is wrong or length is not satisfied" required>
-				</div>
-			</div>
+	<div id="xs-deliver" class="text-center visible-xs">* We Care For Your Care</div>
+	<div id="main-content" class="container">
+		<button type="button" id="but1" class="btn btn-default" onclick="viewSignIn()">Signin</button>
+		<button type="button" id="but2" class="btn btn-default" onclick="viewSignUp()">Signup</button>
+		<div class="col-md-12 col-sm-12 col-xs-12">
 			
-			<div class="form-group row">
-				<div class="col-sm-10">
-					<button type="submit" class="btn btn-primary">Sign in</button>
+			<form  id="signup" action="/shplogin/signuppat" method="POST">	
+				<div class="form-group row">
+					<label for="patientFname" class="col-sm-2 col-form-label">Patient First Name</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientFname" name="patientFname" placeholder="Enter Patient First Name" pattern="[A-Za-z]{1,15}" title="No's cant be used" required>
+					</div>
 				</div>
+
+				<div class="form-group row">
+					<label for="patientLname" class="col-sm-2 col-form-label">Patient Last Name</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientLname" name="patientLname" placeholder="Enter Patient Last Name" pattern="[A-Za-z]{1,15}" title="No's cant be used" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientDOB" class="col-sm-2 col-form-label">Patient DOB</label>
+					<div class="col-sm-10">
+					  <input type="date" class="form-control" id="patientDOB" name="patientDOB" placeholder="Enter Patient DOB" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientGender" class="col-sm-2 col-form-label">Patient Gender</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientGender" name="patientGender" placeholder="M/F" pattern="[M,F]{1}" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientPhone" class="col-sm-2 col-form-label">Patient Phone</label>
+					<div class="col-sm-10">
+					  <input type="tel" class="form-control" id="patientPhone" name="patientPhone" placeholder="Enter Patient Phone" pattern="[0-9]{10}" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientDoor" class="col-sm-2 col-form-label">Patient Door No</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientDoor" name="patientDoor" placeholder="Enter Patient Door No" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientStreet" class="col-sm-2 col-form-label">Patient Street</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientStreet" name="patientStreet" placeholder="Enter Patient Street" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientPincode" class="col-sm-2 col-form-label">Patient Pincode</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientPincode" name="patientPincode" placeholder="Enter Patient Pincode"  pattern="[0-9]{6}" title='length 6(only numbers)' required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientPwd" class="col-sm-2 col-form-label">Patient Password</label>
+					<div class="col-sm-10">
+					  <input type="password" class="form-control" id="patientPwd" name="patientPwd" placeholder="Enter Patient Password" pattern=".{8,}" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<button type="submit" class="btn btn-primary">Sign up</button>
+					</div>
+				</div>
+			  </form>
+		</div>
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<form  id="signin" action="/shplogin/signinpat" method="POST">
+				<div class="form-group row">
+					<label for="patentID" class="col-sm-2 col-form-label">Patient ID</label>
+					<div class="col-sm-10">
+					  <input type="text" class="form-control" id="patientID" name="patientID" placeholder="Enter Patient ID" pattern="[A-M]{1}[0-9]{6}" required>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="patientPwd" class="col-sm-2 col-form-label">Patient Password</label>
+					<div class="col-sm-10">
+					  <input type="password" class="form-control" id="patientPwd" name="patientPwd" placeholder="Enter Patient Password" pattern=".{8,}" title ="Check again, either the password is wrong or length is not satisfied" required>
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<button type="submit" class="btn btn-primary">Sign in</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script>
+			function viewSignIn(){
+				document.getElementById("signup").style.display = "none";
+				document.getElementById("signin").style.display = "block";
+			}
+			function viewSignUp(){
+				document.getElementById("signin").style.display = "none";
+				document.getElementById("signup").style.display = "block";
+			}
+		</script>
+	</div><!--End of #main-content -->
+
+	<footer class="panel-footer">
+		<div class="container">
+			<div class="row">
+				<section id="amenity" class="col-sm-6">
+					<span>Amenities:</span><br>
+					Emergency Care 24/7<br>
+					Advanced Equipments<br>
+					Support And Help Through Calls
+					<hr class="visible-xs">
+				</section>
+				<section id="address" class="col-sm-6">
+					<span>Address:</span><br>
+					Smart Healthcare Provider,<br> 
+					Phase 1, Process House, S.B. Road<br>
+					Mumbai, Maharashtra 400013, India
+					<p>*Medicine delivery area within 3-4 miles, with minimum order of Rs.500 plus Rs.50 charge for all deliveries.</p>
+					<hr class="visible-xs">
+				</section>
 			</div>
-		</form>
-	</div>
-	<script>
-		function viewSignIn(){
-			document.getElementById("signup").style.display = "none";
-			document.getElementById("signin").style.display = "block";
-		}
-		function viewSignUp(){
-			document.getElementById("signin").style.display = "none";
-			document.getElementById("signup").style.display = "block";
-		}
-	</script>
-</div><!--End of #main-content -->
+			<div class="text-center">&copy; Copyright SQL Injectors 2020</div>	
+		</div>
+		
+	</footer>
+
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
