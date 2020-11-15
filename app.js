@@ -117,6 +117,25 @@ app.get('/roomshow',function(req,res){
     })
 })
 
+app.get('/doctorview',function(req,res){
+    var dview;
+    dbConnect.query("select dID,concat(concat(pFname,' '),pLname) as PName,reason,appDateTime,pGender,pDOB,pPhno from patient natural join appointment where dID = 'N000001';",function(error,rows,fields){
+        if(!!error)
+            console.log("error");
+        else{
+            dView = (JSON.parse(JSON.stringify(rows)));
+            console.log(dView);
+            res.render('doctorView.ejs',{
+                dView : dView
+            })
+        }
+    })
+})
+
+app.get('/createPres',function(req,res){
+    res.render('createPres.ejs')
+})
+
 app.listen(port,() => {
     console.log("Port 3000 Accessed");
 })

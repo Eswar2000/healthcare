@@ -141,6 +141,12 @@ body{
 
 /*End Of Header Tag*/
 
+/*for createPres.html*/
+.pres{
+	width: 160px;
+}
+/*end of createPRes.html*/
+
 /*For Index.html Page*/
 
 .container .jumbotron {

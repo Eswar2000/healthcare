@@ -75,3 +75,52 @@ function viewSignUp(){
 // function addPres(){
 //     window.location.href = "createPres.html";
 // }
+function addRow() {
+    var medTab = document.getElementById('mytab');
+
+    var rowCnt = medTab.rows.length;    
+    var tr = medTab.insertRow(rowCnt); 
+    tr = medTab.insertRow(rowCnt);
+
+    for (var c = 0; c < 4; c++) {
+        var td = document.createElement('td');          
+        td = tr.insertCell(c);
+        td.setAttribute('class','cell')
+
+        if (c == 2 || c == 3) {   
+            var button = document.createElement('button');
+            button.setAttribute('class','btn btn-primary');
+            button.setAttribute('type', 'submit');
+            if(c==3){
+                button.textContent = 'Add';
+            }
+            else {
+                button.textContent = 'Delete';
+                button.setAttribute('onclick', 'removeRow(this)');
+            }
+            td.appendChild(button);
+        }
+        else {
+            
+            if(c==1){
+                ele.setAttribute('pattern','[0-9]{1}[-]{1}[0-9]{1}[-]{1}[0-9]{1}')
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('class','pres');
+                ele.setAttribute('value', '');
+                ele.required = true;
+            }
+            else{
+                var ele = document.createElement('select');
+                ele.setAttribute('class','pres');
+                ele.setAttribute('value', '');
+            }
+            td.appendChild(ele);
+        }
+    }
+}
+
+function removeRow(oButton) {
+    var empTab = document.getElementById('mytab');
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
+}

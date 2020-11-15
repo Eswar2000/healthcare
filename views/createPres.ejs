@@ -4,106 +4,90 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge">
 	<meta name="viewport" content="width=device-width initial-scale=1">
-	<title>Patient Protal</title>
+	<title>Creating Prescription</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onload="onCreatePresLoad()">
 	<header>
 		<nav id="header-nav" class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="/" class="pull-left visible-md visible-lg">
+					<a href="index.html" class="pull-left visible-md visible-lg">
 						<div id="logo-img" alt="Logo image"></div>
 					</a>
 					<div class="navbar-brand">
-						<a href="/"><h1>Healthcare</h1></a>
+						<a href="index.html"><h1>Healthcare</h1></a>
 					</div>
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
-        				<span class="sr-only">Toggle navigation</span>
-        				<span class="icon-bar"></span>
-        				<span class="icon-bar"></span>
-        				<span class="icon-bar"></span>
-      				</button>
+					
       			</div>
       			<div id="collapsable-nav" class="collapse navbar-collapse">
       				<ul id="nav-list" class="nav navbar-nav navbar-right">
-      					<li class="visible-xs">
-      						<a href="#">
-      						<span class="glyphicon glyphicon-home">Home</span>
-      						</a>
-      					</li>
-      					<li>
-      						<a href="/shplogin">
-      							<span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">Logout
-      						</a>
-      					</li>
-      					<li>
-      						<a href="#">
-      							<span class="glyphicon glyphicon-info-sign"></span><br class="hidden-xs">About
-      						</a>
-      					</li>
+						<li>
+							<h3 id="date"></h3>
+							<h5 id="time"></h5>
+						</li>  
       				</ul>
-      				
       			</div>
       		</div>
 		</nav>
 	</header>
-	<div id="main-content" class="container" onload="onCreatePresLoad()">
+	<div id="main-content" class="container">
 		<h2>Welcome Doctor</h2>
 		<div class="row">
-			<h2>Creating Prescription for Some Name by Doctor Name Dated : <span id="date1"></span></h2>
+            <h2>Creating Prescription for Some Name by Doctor Name Dated : <span id="date1"></span></h2>
 			<br>
-			<table>
+			<table id = 'mytab'>
 				<tbody>
 					<tr>
 						<td class="cell">Medicine Name</td>
 						<td class="cell">Taking Pattern</td>
-						<td class="cell">No of days</td>
-						<td class="cell">Delete</td>
-						<td class="cell">Modify</td>
+                        <td class="cell">Delete</td>
+                        <td class="cell">Modify</td>
 					</tr>
-					<tr>
-						<td class="cell">Some Name</td>
-						<td class="cell">Some Pattern</td>
-						<td class="cell">Some Number</td>
-						<td class="cell"><button type="submit"class="btn btn-primary">Delete</button></td>
-						<td class="cell"><button type="submit"class="btn btn-primary">Modify</button></td>
-					</tr>
+					<!-- <tr>
+						<td class="cell"><input class = 'pres' type='text' required></td>
+                        <td class="cell"><input class = 'pres' pattern = "[0-9]{1}[-]{1}[0-9]{1}[-]{1}[0-9]{1}" type ='text' required></td>
+						<td class="cell"><button type="submit" class="btn btn-primary">Delete</button></td>
+						<td class="cell"><button type="submit" class="btn btn-primary">Modify</button></td>
+					</tr> -->
 				</tbody>
 			</table>
 			<br>
-			<button type="submit" class="btn btn-primary">Add Medicine</button>
+			<button type="submit" class="btn btn-primary" onclick="addRow()">Add Medicine</button>
 			<button type="submit" class="btn btn-primary">Confirm</button>
 		</div>	
 	</div><!--End of #main-content -->
-	<footer class="panel-footer">
-			<div class="container">
-				<div class="row">
-					<section id="amenity" class="col-sm-6">
-						<span>Amenities:</span><br>
-						Emergency Care 24/7<br>
-						Advanced Equipments<br>
-						Support And Help Through Calls
-						<hr class="visible-xs">
-					</section>
-					<section id="address" class="col-sm-6">
-						<span>Address:</span><br>
-						Smart Healthcare Provider,<br> 
-						Phase 1, Process House, S.B. Road<br>
-						Mumbai, Maharashtra 400013, India
-						<p>*Medicine delivery area within 3-4 miles, with minimum order of Rs.500 plus Rs.50 charge for all deliveries.</p>
-						<hr class="visible-xs">
-				</div>
-				<div class="text-center">&copy; Copyright SQL Injectors 2020</div>	
-			</div>
-			
-		</footer>
 
-	<script src="js/jquery-3.5.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/script.js"></script>
+	<footer class="panel-footer">
+		<div class="container">
+			<div class="row">
+				<section id="hours" class="col-sm-6">
+					<span>Amenities:</span><br>
+					Emergency Care 24/7<br>
+					Advanced Equipments<br>
+					Support And Help Through Calls
+					<hr class="visible-xs">
+				</section>
+				<section id="address" class="col-sm-6">
+					<span>Address:</span><br>
+					Smart Healthcare Provider,<br> 
+					Phase 1, Process House, S.B. Road<br>
+					Mumbai, Maharashtra 400013, India
+					<p>*Medicine delivery area within 3-4 miles, with minimum order of Rs.500 plus Rs.50 charge for all deliveries.</p>
+					<hr class="visible-xs">
+				</section>
+			</div>
+			<div class="text-center">&copy; Copyright SQLInjectors 2020</div>	
+		</div>
+		
+	</footer>
+
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+
 </body>
 </html>
