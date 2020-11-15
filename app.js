@@ -15,6 +15,7 @@ const dbConnect = mysql.createConnection({
 });
 let patientDetails = null
 let doctorDetails = null
+let empDetails = null
 dbConnect.connect(function(error){
     if(!!error)
         console.log("Connection Error");
@@ -35,6 +36,7 @@ app.get('/shplogin', function(req, res, next) {
 app.get('/logout',function(req,res,next){
     patientDetails = null
     doctorDetails = null
+    empDetails = null
     res.redirect('/')
 })
 
@@ -134,6 +136,23 @@ app.get('/doctorview',function(req,res){
 
 app.get('/createPres',function(req,res){
     res.render('createPres.ejs')
+})
+
+app.get('/addToStock',(Req,res)=>{
+    res.render('addToStock.ejs',{drugMsg: ''});
+})
+
+app.post('/addToStock', (req,res)=>{
+    const stockDetails = req.body;
+    console.log(stockDetails);
+    var qry = "INSERT into drugs values('"+stockDetails.drugName+"','"+stockDetails.drugPrice+"','"+stockDetails.drugCount+"','"+stockDetails.drugMfDate+"','"+stockDetails.drugExpDate+"')";
+    dbConnect.query(qry,function(error){
+        if(!!error)
+            console.log(error);
+        else 
+            console.log('Success');
+            res.render('addToStock.ejs',{drugMsg : String(stockDetails.drugName)+' has been added'}); 
+    })
 })
 
 app.listen(port,() => {

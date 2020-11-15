@@ -15,11 +15,11 @@
 		<nav id="header-nav" class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="/" class="pull-left visible-md visible-lg">
+					<a href="index.html" class="pull-left visible-md visible-lg">
 						<div id="logo-img" alt="Logo image"></div>
 					</a>
 					<div class="navbar-brand">
-						<a href="/"><h1>Healthcare</h1></a>
+						<a href="index.html"><h1>Healthcare</h1></a>
 					</div>
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
         				<span class="sr-only">Toggle navigation</span>
@@ -36,7 +36,7 @@
       						</a>
       					</li>
       					<li>
-      						<a href="/shplogin">
+      						<a href="shplogin.html">
       							<span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">Logout
       						</a>
       					</li>
@@ -84,6 +84,15 @@
 						<div class="col-sm-10">
 						  <input type="text" class="form-control" id="appReason" placeholder="Enter Your Reason">
 						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="appReason" class="col-sm-2 col-form-label">Specialization</label>
+						<div class="col-sm-10">
+							<select class="form-control">
+								<option>Default - No Preferences</option>
+							</select>
+						</div>
                     </div>
                     
 					<div class="form-group row">
@@ -128,7 +137,7 @@
 					<tbody>
 						<%hist.forEach(function(entry) {%>
 						<tr>
-							<td class="cell"><%=String(entry.appDateTime).substring(0,10)+' '+String(entry.appDateTime).substring(11,19)%></td>
+							<td class="cell"><%=String(entry.appDateTime).substring(0,19)%></td>
 							<td class="cell"><%=entry.did%></td>
 							<td class="cell"><%=entry.disease%></td>
 							<td class="cell"><%=entry.amount%></td>
