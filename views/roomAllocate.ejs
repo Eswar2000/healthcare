@@ -57,18 +57,23 @@
 			<h2>Rooms Allocation</h2>
 			<h3> Type </h3>
 			<br>
-			<form onsubmit="roomAllocation()">
+			<form action="roomalloc" method="POST">
 				<div class="form-group row">
 					<label for="patentID" class="col-sm-2 col-form-label">Patient ID</label>
 					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="patientID" placeholder="Enter Patient ID" pattern="[A-M]{1}[0-9]{6}" required>
+					  <input name="pID" type="text" class="form-control" id="patientID" placeholder="Enter Patient ID" pattern="[A-M]{1}[0-9]{6}" required>
 					</div>
 				</div>
-	
+				<div class="form-group row">
+					<label for="rNo" class="col-sm-2 col-form-label">Room No</label>
+					<div class="col-sm-10">
+					  <input name="rNo" type="text" class="form-control" id="rNo" placeholder="Enter Room No" pattern="[R]{1}[0-9]{3}" required>
+					</div>
+				</div>
 				<div class="form-group row">
 					<label for="rOutDate" class="col-sm-2 col-form-label">Expected Out Date</label>
 					<div class="col-sm-10">
-					  <input type="date" class="form-control" id="rOutDate" placeholder="Enter Expected Out Date" required>
+					  <input name="rOutDate" type="date" class="form-control" id="rOutDate" placeholder="Enter Expected Out Date" required>
 					</div>
 				</div>
 				
