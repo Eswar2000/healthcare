@@ -147,6 +147,13 @@ body{
 }
 /*end of createPRes.html*/
 
+/*for roomSearch.html*/
+.invisible {
+	display: none;
+	visibility: hidden;
+}
+/*end of roomSearch.html*/
+
 /*For Index.html Page*/
 
 .container .jumbotron {

@@ -7,11 +7,11 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 const dbConnect = mysql.createPool({
-    host:'localhost',
-    port: 3306,
-    user: 'root',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
     password: process.env.DB_PW,
-    database: 'healthcare'
+    database: process.env.DB_SCHEMA
 });
 let patientDetails = null
 let doctorDetails = null
@@ -218,6 +218,73 @@ app.post('/pharma', (req, res) => {
 
 app.get('/sendPresc',(req,res)=>{
     res.render('sendPresc.ejs')
+})
+
+app.get('/roomSearch',(req,res)=>{
+    res.render('roomSearch.ejs',{errormessage: null})
+})
+
+app.post('/roomSearch',(req,res)=>{
+    if(req.body.rID !== ''){
+        dbConnect.query("SELECT * FROM roomSearch WHERE RNO = ? and rOutDate > '2020-10-07'",[req.body.rID],(err,rows)=>{
+            if(!!err){
+                console.log(err)
+            }
+            else{
+                if(rows.length !== 0){
+                    let val = JSON.parse(JSON.stringify(rows[0]))
+                    console.log(val)
+                    let retVal = ' Room No : '+req.body.rID+'\n InDate : '+convertDate(val.rInDate)+'\n OutDate : '+convertDate(val.rOutDate)+'\n Patient ID : '+val.pID+'\n Patient Name : '+val.pFname+'\n Patient Phone : '+val.pPhno
+                    console.log(retVal)
+                    res.render('roomSearch.ejs',{errormessage: retVal})
+                }
+                else
+                    res.render('roomSearch.ejs',{errormessage: 'No Room Found'})
+            }
+        })
+    }
+    else if(req.body.pID !== ''){
+        dbConnect.query("SELECT * FROM roomSearch WHERE pID = ? and rOutDate > '2020-10-07'",[req.body.pID],(err,rows)=>{
+            if(!!err){
+                console.log(err)
+            }
+            else{
+                if(rows.length !== 0){
+                    let val = JSON.parse(JSON.stringify(rows[0]))
+                    console.log(val)
+                    let retVal = ' Room No : '+val.rNo+'\n InDate : '+convertDate(val.rInDate)+'\n OutDate : '+convertDate(val.rOutDate)+'\n Patient ID : '+val.pID+'\n Patient Name : '+val.pFname+'\n Patient Phone : '+val.pPhno
+                    console.log(retVal)
+                    res.render('roomSearch.ejs',{errormessage: retVal})
+                }
+                else
+                    res.render('roomSearch.ejs',{errormessage: 'No Room Found'})
+            }
+        })
+    }
+})
+
+app.get('/addToPres',(req,res)=>{
+    res.render('addToPres.ejs',{PresMsg:''})
+})
+
+app.post('/addToPres',(req,res)=>{
+    var presDetails = req.body;
+    console.log(presDetails)
+    var today = new Date();                     
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    dateTime = date+' '+presDetails.presTime+':00';
+    var qry = "Insert into prescription values('"+presDetails.pID+"','"+dateTime+"','"+presDetails.drugName+"','"+presDetails.dosage+"')";
+    dbConnect.query(qry,function(error){
+        if(!!error)
+            console.log(error);
+        else{
+            console.log('Success');
+        }
+    }) 
+})
+
+app.get('/roomAlloc',(req,res)=>{
+    res.render('roomAllocate.ejs')
 })
 
 app.listen(port,() => {
