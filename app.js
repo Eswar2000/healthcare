@@ -153,13 +153,15 @@ app.get('/roomshow',function(req,res){
 })
 
 app.get('/doctorview',function(req,res){
-    var dview;
+    let dview
     dbConnect.query("select pID,dID,concat(concat(pFname,' '),pLname) as PName,reason,appDateTime,pGender,pDOB,pPhno from patient natural join appointment where dID = 'N000001';",function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{
             dView = (JSON.parse(JSON.stringify(rows)));
-            console.log(dView);
+            for (var i = 0; i < dView.length; i++) {
+                dView[i].appDateTime = convertDate(dView[i].appDateTime)
+            }
             res.render('doctorView.ejs',{
                 dView : dView
             })
@@ -167,11 +169,25 @@ app.get('/doctorview',function(req,res){
     })
 })
 
+function convertDate(dateString) {
+	var sqlDateArr1 = dateString.split("-");
+	var sYear = sqlDateArr1[0];
+	var sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+	var sqlDateArr2 = String(sqlDateArr1[2]).split("T");
+	var sDay = sqlDateArr2[0];
+	var sqlDateArr3 = String(sqlDateArr2[1]).split(":");
+	var sHour = sqlDateArr3[0];
+	var sMinute = sqlDateArr3[1];
+	var sqlDateArr4 = String(sqlDateArr3[2]).split(".");
+	var sSecond = sqlDateArr4[0];
+	return String(sDay+'/'+sMonth+'/'+sYear+' '+sHour+':'+sMinute+':'+sSecond)
+}
+
 app.get('/createPres',function(req,res){
     res.render('createPres.ejs')
 })
 
-app.get('/addToStock',(Req,res)=>{
+app.get('/addToStock',(req,res)=>{
     res.render('addToStock.ejs',{drugMsg: ''});
 })
 
@@ -189,13 +205,27 @@ app.post('/addToStock', (req,res)=>{
 })
 
 app.get('/pharma',(req, res)=>{
-    res.render('pharma.ejs');
+    console.log(req)
+    res.render('pharma.ejs',{ presView:[{}] });
 })
 
-app.post('/pharma',(req,res)=>{
-    const prescDetails = req.body;
-    console.log(prescDetails)
-    var qry = "select dosage, medicine from prescription where pID=" 
+app.post('/pharma', (req, res) => {
+    var presView;
+    dbConnect.query('SELECT dosage, medicine FROM prescription WHERE pId = ? AND prescDateTime = ?', [req.body.id, req.body.datetime], (err, results) => {
+        if (!!err) {
+            console.log(err)
+        } else {
+            presView = (JSON.parse(JSON.stringify(results)));
+            console.log(presView)
+            res.render('pharma.ejs',{
+                presView: presView
+            })
+        }
+    });
+});
+
+app.get('/sendPresc',(req,res)=>{
+    res.render('sendPresc.ejs')
 })
 
 app.listen(port,() => {
