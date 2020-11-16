@@ -7,7 +7,22 @@ function viewPresc() {
         id, datetime
     }).then(res => {
         //console.log(res.data);
-        document.getElementById("presTable").style.display = "block";
+        var html = `<table border='1|1'><thead>
+        <tr>
+            <td class="cell">Medicine Name</td>
+            <td class="cell">Taking Pattern</td>
+        </tr>
+    </thead><tbody>`;
+        for (var i = 0; i < res.data.length; i++) {
+            html+="<tr>";
+            html+="<td class='cell'>"+res.data[i].medicine+"</td>";
+            html+="<td class='cell'>"+res.data[i].dosage+"</td>";
+            html+="</tr>";
+
+        }
+    html+="</tbody></table>";
+    $("#presTable").html(html);
+        console.log(res)
     }).catch(err => {
 
     });

@@ -6,7 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
-const dbConnect = mysql.createConnection({
+const dbConnect = mysql.createPool({
     host:'localhost',
     port: 3306,
     user: 'root',
@@ -16,12 +16,6 @@ const dbConnect = mysql.createConnection({
 let patientDetails = null
 let doctorDetails = null
 let empDetails = null
-dbConnect.connect(function(error){
-    if(!!error)
-        console.log("Connection Error");
-    else 
-        console.log("Connection Successful");
-})
 app.use("/public",express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -205,21 +199,19 @@ app.post('/addToStock', (req,res)=>{
 })
 
 app.get('/pharma',(req, res)=>{
-    console.log(req)
     res.render('pharma.ejs',{ presView:[{}] });
 })
 
 app.post('/pharma', (req, res) => {
-    var presView;
     dbConnect.query('SELECT dosage, medicine FROM prescription WHERE pId = ? AND prescDateTime = ?', [req.body.id, req.body.datetime], (err, results) => {
-        if (!!err) {
+        if (err) {
+            res.status(500).end();
+            console.log(req.body.id, req.body.datetime)
             console.log(err)
         } else {
-            presView = (JSON.parse(JSON.stringify(results)));
-            console.log(presView)
-            res.render('pharma.ejs',{
-                presView: presView
-            })
+            res.json(results);
+            res.status(200).end();
+            console.log(results)
         }
     });
 });
