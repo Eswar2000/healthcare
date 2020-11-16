@@ -51,24 +51,30 @@
       		</div>
 		</nav>
 	</header>
+	<div id='status' class='invisible'><%= errormsg %></div>
 	<div id="main-content" class="container">
 		<h2>Welcome Employee</h2>
 		<div class="row">
 			<h2>Rooms Allocation</h2>
 			<h3> Type </h3>
 			<br>
-			<form onsubmit="roomAllocation()">
+			<form action="roomalloc" method="POST">
 				<div class="form-group row">
 					<label for="patentID" class="col-sm-2 col-form-label">Patient ID</label>
 					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="patientID" placeholder="Enter Patient ID" pattern="[A-M]{1}[0-9]{6}" required>
+					  <input name="pID" type="text" class="form-control" id="patientID" placeholder="Enter Patient ID" pattern="[A-M]{1}[0-9]{6}" required>
 					</div>
 				</div>
-	
+				<div class="form-group row">
+					<label for="rNo" class="col-sm-2 col-form-label">Room No</label>
+					<div class="col-sm-10">
+					  <input name="rNo" type="text" class="form-control" id="rNo" placeholder="Enter Room No" pattern="[R]{1}[0-9]{3}" required>
+					</div>
+				</div>
 				<div class="form-group row">
 					<label for="rOutDate" class="col-sm-2 col-form-label">Expected Out Date</label>
 					<div class="col-sm-10">
-					  <input type="date" class="form-control" id="rOutDate" placeholder="Enter Expected Out Date" required>
+					  <input name="rOutDate" type="date" class="form-control" id="rOutDate" placeholder="Enter Expected Out Date" required>
 					</div>
 				</div>
 				
@@ -107,5 +113,11 @@
 	<script src="js/jquery-3.5.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+		if($('div#status').text()!='')
+        {
+            alert($('div#status').text());
+		}
+	</script>
 </body>
 </html>
