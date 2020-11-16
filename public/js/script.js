@@ -33,14 +33,14 @@ function viewSignUp(){
 //     window.alert("Room details Found : ");
 // }
 
-// function viewPresc(){
-//     document.getElementById("supply").style.display = "none";
-//     document.getElementById("order").style.display = "block";
-// }
-// function viewOrder(){
-//     document.getElementById("order").style.display = "none";
-//     document.getElementById("supply").style.display = "block";
-// }
+function viewPresc(){
+    document.getElementById("supply").style.display = "none";
+    document.getElementById("order").style.display = "block";
+}
+function viewOrder(){
+    document.getElementById("order").style.display = "none";
+    document.getElementById("supply").style.display = "block";
+}
 // function addMed(){
 //     window.location.href = "addToStock.html";
 // }

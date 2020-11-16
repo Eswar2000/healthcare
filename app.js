@@ -57,16 +57,34 @@ app.post('/shplogin/signinpat',function(req,res,next){
 app.post('/shplogin/signuppat',function(req,res){
     const userDetails = req.body;
     console.log(userDetails);
-    let id = 'A000202'
-    var qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientGender+"', '"+userDetails.patientPhone+"', '"+userDetails.patientDOB+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"', '"+userDetails.patientPwd+"')";
-    console.log(qry);
-    dbConnect.query(qry,function(error){
+    let id = null;
+    let qry2 = "select max(pID) as pID from patient"
+    dbConnect.query(qry2,function(error,rows){
         if(!!error)
-            console.log('Error');
-        else 
-            console.log('Success'); 
+            console.log(error)
+        else{
+            id = rows[0].pID;
+            console.log(id)
+            pad = (n,width,z)=>{
+                z = z || '0';
+                n = n + '';
+                return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n; 
+            }
+            let integer = parseInt(id.substring(1))
+            id = pad(pad(integer+1,6),7,'A')
+            console.log(id)
+            let qry = "INSERT INTO PATIENT VALUES('"+id+"', '"+userDetails.patientFname+"', '"+userDetails.patientLname+"', '"+userDetails.patientGender+"', '"+userDetails.patientPhone+"', '"+userDetails.patientDOB+"', '"+userDetails.patientDoor+"', '"+userDetails.patientStreet+"', '"+userDetails.patientPincode+"', '"+userDetails.patientPwd+"')";
+            console.log(qry);
+            dbConnect.query(qry,function(error){
+                if(!!error)
+                    console.log('Error');
+                else 
+                    console.log('Success'); 
+            })
+            res.redirect('/shplogin')
+        }
     })
-    res.redirect('/shplogin')
+    
 });
 
 app.get('/patient',function(req,res){
@@ -136,7 +154,7 @@ app.get('/roomshow',function(req,res){
 
 app.get('/doctorview',function(req,res){
     var dview;
-    dbConnect.query("select dID,concat(concat(pFname,' '),pLname) as PName,reason,appDateTime,pGender,pDOB,pPhno from patient natural join appointment where dID = 'N000001';",function(error,rows,fields){
+    dbConnect.query("select pID,dID,concat(concat(pFname,' '),pLname) as PName,reason,appDateTime,pGender,pDOB,pPhno from patient natural join appointment where dID = 'N000001';",function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{
@@ -168,6 +186,16 @@ app.post('/addToStock', (req,res)=>{
             console.log('Success');
             res.render('addToStock.ejs',{drugMsg : String(stockDetails.drugName)+' has been added'}); 
     })
+})
+
+app.get('/pharma',(req, res)=>{
+    res.render('pharma.ejs');
+})
+
+app.post('/pharma',(req,res)=>{
+    const prescDetails = req.body;
+    console.log(prescDetails)
+    var qry = "select dosage, medicine from prescription where pID=" 
 })
 
 app.listen(port,() => {

@@ -41,22 +41,20 @@
 			<br>
 			<table>
 				<thead>
+					<td class="cell">Patient ID</td>
 					<td class="cell">Patient Name</td>
 					<td class="cell">Reason</td>
 					<td class="cell">Date</td>
 					<td class="cell">Patient Details</td>
-					<td class="cell">Treatment</td>
-					<td class="cell">Prescription</td>
 				</thead>
 				<tbody>
                     <%dView.forEach(function(entry) {%>
 					<tr>
+						<td class="cell"><%=entry.pID%></td>
 						<td class="cell"><%=entry.PName%></td>
 						<td class="cell"><%=entry.reason%></td>
 						<td class="cell"><%=String(entry.appDateTime).substring(0,10)%></td>
 						<td class="cell">Gender: <%=entry.pGender%><br>Born: <%=String(entry.pDOB).substring(0,10)%><br>Ph: <%=entry.pPhno%></td>
-						<td class="cell"><button type="submit"class="btn btn-primary">Order</button></td>
-						<td class="cell"><button type="submit"class="btn btn-primary" onclick = "location.href = '/createPres'">Create</button></td>
                     </tr>
                     <%});%>
 				</tbody>
