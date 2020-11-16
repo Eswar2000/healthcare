@@ -318,6 +318,25 @@ app.get('/roomAvail',function(req,res){
     })
 })
 
+app.get('/roomAlloc',(req,res)=>{
+    res.render('roomAllocate.ejs')
+})
+
+app.get('/roomAvail',function(req,res){
+    var roomhist;
+    dbConnect.query("select * from rooms where rNo not in (select rNo from roomAvail where rOutDate > '2020-10-10')",function(error,rows,fields){
+        if(!!error)
+            console.log("error");
+        else{
+            roomhist = (JSON.parse(JSON.stringify(rows)));
+            console.log(roomhist);
+            res.render('roomAvail.ejs',{
+                roomhist : roomhist
+            })
+        }
+    })
+})
+
 app.listen(port,() => {
     console.log("Port 3000 Accessed");
 })
