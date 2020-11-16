@@ -94,7 +94,8 @@ app.get('/patient',function(req,res){
                             res.render('patient.ejs',{
                                 plist : presList,
                                 hist : hist,
-                                pName : pName
+                                pName : pName,
+                                appMsg : ''
                             })
                         }
                     })
@@ -103,6 +104,20 @@ app.get('/patient',function(req,res){
         }
     })
 });
+
+app.post('/patient', (req,res)=>{
+    const appDetails = req.body;
+    console.log(appDetails);
+    var qry = "INSERT into appointment values('"+''+"','"+appDetails.appDate+"','"+appDetails.appTime+"','"+appDetails.reason+"')";
+    console.log(qry)
+    /*dbConnect.query(qry,function(error){
+        if(!!error)
+            console.log(error);
+        else 
+            console.log('Success');
+            res.render('addToStock.ejs',{appMsg : String(stockDetails.drugName)+' has been added'}); 
+    })*/
+})
 
 app.get('/roomshow',function(req,res){
     var roomhist;

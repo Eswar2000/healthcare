@@ -63,31 +63,31 @@
             
 			<div id="booking">
 
-                <form>
+                <form action="/patient" method="POST">
 
 					<div class="form-group row">
 						<label for="appDate" class="col-sm-2 col-form-label">Date Of Appointment</label>
 						<div class="col-sm-10">
-						  <input type="date" class="form-control" id="appDate" placeholder="DD-MM-YYYY">
+						  <input name="appDate" type="date" class="form-control" id="appDate" placeholder="DD-MM-YYYY">
 						</div>
 					</div>
 	
 					<div class="form-group row">
 						<label for="appTime" class="col-sm-2 col-form-label">Time Of Appointment</label>
 						<div class="col-sm-10">
-						  <input type="time" class="form-control" id="appTime" placeholder="HH:MM">
+						  <input name="appTime" type="time" class="form-control" id="appTime" placeholder="HH:MM">
 						</div>
 					</div>
 					
 					<div class="form-group row">
 						<label for="appReason" class="col-sm-2 col-form-label">Reason</label>
 						<div class="col-sm-10">
-						  <input type="text" class="form-control" id="appReason" placeholder="Enter Your Reason">
+						  <input name="reason" type="text" class="form-control" id="appReason" placeholder="Enter Your Reason">
 						</div>
 					</div>
 					
 					<div class="form-group row">
-						<label for="appReason" class="col-sm-2 col-form-label">Specialization</label>
+						<label for="Specialisations" class="col-sm-2 col-form-label">Specialization</label>
 						<div class="col-sm-10">
 							<select class="form-control">
 								<option>Default - No Preferences</option>
@@ -100,6 +100,7 @@
 							<button type="submit" id="issued" class="btn btn-primary">Request Appointment</button>
 						</div>
 					</div>
+					<div><%=appMsg%></div>
 				</form>
 
 			</div>
