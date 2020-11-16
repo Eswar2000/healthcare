@@ -283,8 +283,24 @@ app.post('/addToPres',(req,res)=>{
     }) 
 })
 
-app.get('/roomAlloc',(req,res)=>{
-    res.render('roomAllocate.ejs')
+app.get('/roomalloc',(req,res)=>{
+    res.render('roomAllocate.ejs',{errormsg:null})
+})
+
+app.post('/roomalloc',(req,res)=>{
+    var roomDetails = req.body;
+    console.log(roomDetails);
+    var today = new Date();                     
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var qry = "Insert into roomrecord values('"+roomDetails.rNo+"','"+date+"','"+roomDetails.rOutDate+"','"+'em00002'+"','"+roomDetails.pID+"','"+'1'+"')";
+    dbConnect.query(qry,function(error){
+        if(!!error)
+            console.log(error);
+        else{
+            console.log('Success');
+            res.render('roomAllocate.ejs',{errormsg:'Room Allocated'})
+        }
+    }) 
 })
 
 app.listen(port,() => {
