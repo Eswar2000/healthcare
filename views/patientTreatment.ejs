@@ -53,30 +53,38 @@
 	</header>
 	<div id="main-content" class="container">
 		<h2>Welcome Doctor</h2>
-		<div class="row">
-			<h2>Treatment</h2>
-			<br>
-			<table>
-				<thead>
-					<td class="cell">Doctor ID</td>
-					<td class="cell">Patient ID</td>
-					<td class="cell">Appointment Time</td>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="cell">Some Patient ID</td>
-						<td class="cell">Some Doctor ID</td>
-						<td class="cell">Some DateTIme</td>
-					</tr>
-				</tbody>
-			</table>
+		<form id="treatment" action="/treatment" method="POST">	
+			<div class="form-group row">
+				<label for="pID" class="col-sm-2 col-form-label">Patient ID</label>
+				<div class="col-sm-10">
+				<input name = "pID" type="text" class="form-control" id="pID" placeholder="Enter Patient ID" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="appTime" class="col-sm-2 col-form-label">Appintment Time</label>
+				<div class="col-sm-10">
+				<input name="appTime" type="time" class="form-control" id="appTime" placeholder="Enter appointment Time" required>
+				</div>
+			</div>
 			<br>
 			<div class="form-group row">
 					<label for="disease" class="col-sm-2 col-form-label">Diagnosed disease</label>
 					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="disease" placeholder="Enter Diagnosed disease" required>
+					  <input name="disease" type="text" class="form-control" id="disease" placeholder="Enter Diagnosed disease" required>
 					</div>
+			</div>
+			<div><%=treatMsg%></div>
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button type="submit" class="btn btn-primary">Done</button>
 				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button type="button" class="btn btn-primary">Return</button>
+				</div>
+			</div>
+		</form>
 			<br>
 			<!--<button type="submit" class="btn btn-primary">View All</button>
 			<button type="submit" class="btn btn-primary">Previous Appointments</button>-->

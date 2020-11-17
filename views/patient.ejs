@@ -89,8 +89,10 @@
 					<div class="form-group row">
 						<label for="Specialisations" class="col-sm-2 col-form-label">Specialization</label>
 						<div class="col-sm-10">
-							<select class="form-control">
-								<option>Default - No Preferences</option>
+							<select class="form-control" name='docDetails'>
+								<%doctors.forEach(function(entry) {%>
+								<option><%=String(entry.dID +'-'+ entry.Name +'-'+ entry.dspec) %></option>
+								<%});%>
 							</select>
 						</div>
                     </div>
@@ -108,16 +110,16 @@
 			<div id="prescList">
 				<table id="table1">
 					<thead>
-						<td class="cell">Date Of Appointment</td>
-                        <td class="cell">Doctor ID</td>
-						<td class="cell">Prescription</td>
+						<td class="cell">Prescription Date</td>
+                        <td class="cell">Medicine</td>
+						<td class="cell">Dosage</td>
 					</thead>
 					<tbody>
 						<%plist.forEach(function(entry) {%>
 						<tr>
-							<td class="cell"><%=String(entry.appDateTime).substring(0,10)%></td>
-                            <td class="cell"><%=entry.dID%></td>
-							<td class="cell"><button type="submit"class="btn btn-primary">View</button></td>
+							<td class="cell"><%=String(entry.prescDateTime).substring(0,10)%></td>
+                            <td class="cell"><%=entry.medicine%></td>
+							<td class="cell"><%=entry.dosage%></td>
 						</tr>
 						<%});%>
 					</tbody>

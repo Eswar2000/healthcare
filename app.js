@@ -71,7 +71,6 @@ app.post('/shplogin',function(req,res,next){
                 if(rows[0].PW == userDetails.patientPwd){
                     doctorDetails = JSON.parse(JSON.stringify(rows[0]))
                     console.log('Doctor')
-                    doctorDetails = doctorDetails.ID
                     patientDetails = null
                     empDetails = null
                     res.redirect('/doctorView')
@@ -130,8 +129,14 @@ app.post('/shplogin/signuppat',function(req,res){
             dbConnect.query(qry,function(error){
                 if(!!error)
                     console.log('Error');
-                else 
-                    console.log('Success'); 
+                else {
+                    dbConnect.query("insert into Bill(pID,amount,eID) values(?, 0, 'em00011')",[id],function(err){
+                        if(!!err)
+                            console.log(err)
+                        else
+                            res.redirect('/shplogin')
+                    })
+                }
             })
             res.redirect('/shplogin')
         }
@@ -144,7 +149,8 @@ app.get('/patient',function(req,res){
     var presList;
     var pName;
     var hist; 
-    dbConnect.query("select dID,pID,appDateTime,reason from appointment natural join patient where pid = ?",[patientDetails.ID],function(error,rows,fields){
+    let docs;
+    dbConnect.query("SELECT prescDateTime,medicine,dosage FROM prescription where pID = ?",[patientDetails.ID],function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{
@@ -162,12 +168,22 @@ app.get('/patient',function(req,res){
                         else{
                             pName = (JSON.parse(JSON.stringify(rows)));
                             console.log(pName);
-                            res.render('patient.ejs',{
-                                plist : presList,
-                                hist : hist,
-                                pName : pName,
-                                appMsg : ''
+                            dbConnect.query("Select * from spec",function(err,rows){
+                                docs = (JSON.parse(JSON.stringify(rows)))
+                                console.log(docs)
+                                if(!!error)
+                                    console.log(error);
+                                else{
+                                    res.render('patient.ejs',{
+                                        plist : presList,
+                                        hist : hist,
+                                        pName : pName,
+                                        appMsg : '',
+                                        doctors : docs
+                                    })
+                                }
                             })
+                                
                         }
                     })
                 }
@@ -178,16 +194,23 @@ app.get('/patient',function(req,res){
 
 app.post('/patient', (req,res)=>{
     const appDetails = req.body;
-    console.log(appDetails);
-    var qry = "INSERT into appointment values('"+''+"','"+appDetails.appDate+"','"+appDetails.appTime+"','"+appDetails.reason+"')";
-    console.log(qry)
-    /*dbConnect.query(qry,function(error){
+    appDetails.docDetails = appDetails.docDetails.substring(0,7)
+    let dateTime = appDetails.appDate+' '+appDetails.appTime+':00'
+    console.log(appDetails)
+    dbConnect.query("insert into Appointment values(?, ?, ?,?)",[patientDetails.ID,appDetails.docDetails,dateTime,appDetails.reason],function(error){
         if(!!error)
             console.log(error);
-        else 
-            console.log('Success');
-            res.render('addToStock.ejs',{appMsg : String(stockDetails.drugName)+' has been added'}); 
-    })*/
+        else {
+            dbConnect.query("update bill set amount = amount + 500 where pID = ?",[patientDetails.ID],function(err){
+                if(!!err)
+                    console.log(err)
+                else{
+                    console.log('Success');
+                    res.redirect('/patient')
+                }
+            })
+        }
+    })
 })
 
 app.get('/roomshow',function(req,res){
@@ -207,8 +230,8 @@ app.get('/roomshow',function(req,res){
 
 app.get('/doctorview',function(req,res){
     console.log(doctorDetails)
-    dbConnect.query("select * from docView where dID = ?;",[doctorDetails],function(error,rows,fields){
-        if(!!error)
+    dbConnect.query("select * from docView where dID = ?;",[doctorDetails.ID],function(error,rows,fields){
+        if(!!error) 
             console.log("error");
         else{
             let dView = (JSON.parse(JSON.stringify(rows)));
@@ -216,7 +239,8 @@ app.get('/doctorview',function(req,res){
                 dView[i].appDateTime = convertDate(dView[i].appDateTime)
             }
             res.render('doctorView.ejs',{
-                dView : dView
+                dView : dView,
+                dName : doctorDetails.Name
             })
         }
     })
@@ -335,14 +359,39 @@ app.post('/addToPres',(req,res)=>{
     console.log(presDetails)
     var today = new Date();                     
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    dateTime = date+' '+presDetails.presTime+':00';
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
     var qry = "Insert into prescription values('"+presDetails.pID+"','"+dateTime+"','"+presDetails.drugName+"','"+presDetails.dosage+"')";
     dbConnect.query(qry,function(error){
         if(!!error)
             console.log(error);
         else{
-            console.log('Success');
-            res.render('addToPres.ejs',{PresMsg:String(presDetails.drugName)+' Added'})
+            console.log('Insert Success')
+            let nos = presDetails.dosage.split('-')
+            let no = parseInt(nos[0]) + parseInt(nos[1])+ parseInt(nos[2])
+            no = no *5
+            dbConnect.query("update Drugs set drugCount = drugCount - ? where drugName = ?",[no,presDetails.drugName],function(err){
+                if(!!err)
+                    console.log(err)
+                else{
+                    console.log('Update Success');
+                    dbConnect.query("select drugPrice from drugs where drugName = ?",[presDetails.drugName],function(err,rows,fields){
+                        if(!!err)
+                            console.log(err)
+                        else{
+                            let cost = parseInt(rows[0].drugPrice)
+                            dbConnect.query("update bill set amount = amount + ? where pID = ?",[no*cost,presDetails.pID],function(err){
+                                if(!!err)
+                                    console.log(err)
+                                else{
+                                    console.log('Updated Bill')
+                                    res.render('addToPres.ejs',{PresMsg:String(presDetails.drugName)+' Added'})
+                                }
+                            })
+                        }
+                    })
+                }
+            })
         }
     }) 
 })
@@ -354,15 +403,31 @@ app.get('/roomalloc',(req,res)=>{
 app.post('/roomalloc',(req,res)=>{
     var roomDetails = req.body;
     console.log(roomDetails);
-    var today = new Date();                     
+    var today = new Date();  
+    var date2 = new Date(roomDetails.rOutDate);                   
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var qry = "Insert into roomrecord values('"+roomDetails.rNo+"','"+date+"','"+roomDetails.rOutDate+"','"+'em00002'+"','"+roomDetails.pID+"','"+'1'+"')";
+    var Difference_In_Time = date2.getTime() - today.getTime(); 
+    let value = Difference_In_Time / (1000 * 3600 * 24);
     dbConnect.query(qry,function(error){
         if(!!error)
             console.log(error);
         else{
-            console.log('Success');
-            res.render('roomAllocate.ejs',{errormsg:'Room Allocated'})
+            console.log('Insert Success');
+            dbConnect.query("select rPrice from rooms where rNo = ?",[roomDetails.rNo],function(err,rows,fields){
+                if(!!err)
+                    console.log(err)
+                else{
+                    value = value * parseInt(rows[0].rPrice)
+                    dbConnect.query("Update bill set amount = amount + ? where pID = ?",[value,roomDetails.pID],function(err){
+                        if(!!err)
+                            console.log(err)
+                        else{
+                            res.render('roomAllocate.ejs',{errormsg:'Room Allocated'})
+                        }
+                    })
+                }
+            })
         }
     }) 
 })
@@ -386,6 +451,27 @@ app.get('/roomAvail',function(req,res){
 
 app.get('/employeeHome',(req,res)=>{
     res.render('employeeHome.ejs')
+})
+
+app.get('/treatment',(req,res)=>{
+    res.render('patientTreatment.ejs',{treatMsg:''})
+})
+
+app.post('/treatment',(req,res)=>{
+    var treatDetails = req.body;
+    var today = new Date();                     
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var qry = "insert into treatment values('"+doctorDetails.ID+"','"+treatDetails.pID+"','"+String(date + ' '+treatDetails.appTime)+"','"+treatDetails.disease+"')";
+    dbConnect.query(qry,function(error){
+        if(!!error){
+            console.log(error)
+        }
+        else{
+            console.log('success');
+            res.render('patientTreatment.ejs',{treatMsg : 'Added Treatment'})
+        }
+    })
+    console.log(qry)
 })
 
 app.listen(port,() => {
