@@ -125,17 +125,16 @@
 					</tbody>
 				</table>
 				<br>
-				<button type="button" class="btn btn-default">Close</button>
 				
 			</div>
 
 			<div id="history">
+				<h3>Charges: <%=hist[0].amount%></h3>
 				<table id="table2">
 					<thead>
 						<td class="cell">Date Of Appointment</td>
                         <td class="cell">Doctor ID</td>
 						<td class="cell">Treatment</td>
-						<td class="cell">Charges</td>
 					</thead>
 					<tbody>
 						<%hist.forEach(function(entry) {%>
@@ -143,13 +142,11 @@
 							<td class="cell"><%=String(entry.appDateTime).substring(0,19)%></td>
 							<td class="cell"><%=entry.did%></td>
 							<td class="cell"><%=entry.disease%></td>
-							<td class="cell"><%=entry.amount%></td>
 						</tr>
 						<%});%>
 					</tbody>
 				</table>
 				<br>
-				<button type="button" class="btn btn-default">Close</button>
 				
 			</div>
 			

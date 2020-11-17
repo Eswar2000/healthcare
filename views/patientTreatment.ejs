@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE-edge">
 	<meta name="viewport" content="width=device-width initial-scale=1">
-	<title>Patient Protal</title>
+	<title>Doctor Portal</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@
 		</nav>
 	</header>
 	<div id="main-content" class="container">
-		<h2>Welcome Doctor</h2>
+		<h2>Treatment</h2>
 		<form id="treatment" action="/treatment" method="POST">	
 			<div class="form-group row">
 				<label for="pID" class="col-sm-2 col-form-label">Patient ID</label>
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="appTime" class="col-sm-2 col-form-label">Appintment Time</label>
+				<label for="appTime" class="col-sm-2 col-form-label">Appointment Time</label>
 				<div class="col-sm-10">
 				<input name="appTime" type="time" class="form-control" id="appTime" placeholder="Enter appointment Time" required>
 				</div>
@@ -76,16 +76,14 @@
 			<div><%=treatMsg%></div>
 			<div class="form-group row">
 				<div class="col-sm-10">
-					<button type="submit" class="btn btn-primary">Done</button>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-sm-10">
-					<button type="button" class="btn btn-primary">Return</button>
+					<button type="submit" class="btn btn-primary">Done</button>	
 				</div>
 			</div>
 		</form>
 			<br>
+			<form action="/doctorView" method="GET">
+				<button type="submit" class="btn btn-primary">Return</button>
+			</form>
 			<!--<button type="submit" class="btn btn-primary">View All</button>
 			<button type="submit" class="btn btn-primary">Previous Appointments</button>-->
 		</div>	

@@ -59,17 +59,29 @@
             <br>
             
 			<div id="list1">
-				<button type="button" id="sb1" class="btn btn-default">Add Medicine To Stock</button><br>
-				<button type="button" id="sb2" class="btn btn-default">View Prescription</button>
+				<form method="GET" action="/addToStock">
+					<button type="submit" id="sb1" class="btn btn-default">Add Medicine To Stock</button><br>
+				</form>
+				<form action="/pharma" method="GET">
+					<button type="submit" id="sb2" class="btn btn-default">View Prescription</button>
+				</form>
 
 
 			</div>
 
 			<div id="list2">
-				<button type="button" id="sb3" class="btn btn-default">View Available Rooms</button><br>
-				<button type="button" id="sb4" class="btn btn-default">Room Search</button><br>
-				<button type="button" id="sb5" class="btn btn-default">Show All Rooms</button>
-				
+				<form action="/roomAvail" method="GET">
+					<button type="submit" id="sb3" class="btn btn-default">View Available Rooms</button><br>
+				</form>
+				<form action="/roomSearch" method="GET">
+					<button type="submit" id="sb4" class="btn btn-default">Room Search</button><br>
+				</form>
+				<form action="/roomShow" method="GET">
+					<button type="submit" id="sb5" class="btn btn-default">Show All Rooms</button>
+				</form>
+				<form action="/roomAllocate" method="GET">
+					<button type="submit" id="sb6" class="btn btn-default">Room Allocate</button>
+				</form>
 			</div>
 
 		</div>

@@ -155,6 +155,9 @@ app.get('/patient',function(req,res){
             console.log("error");
         else{
             presList = (JSON.parse(JSON.stringify(rows)));
+            for (var i = 0; i < presList.length; i++) {
+                presList[i].prescDateTime = convertDate(presList[i].prescDateTime)
+            }
             console.log(presList);
             dbConnect.query("select pid,did,appDateTime,amount,disease from bill natural join treatment where pID = ?",[patientDetails.ID],function(error,rows,fields){
                 if(!!error)
@@ -162,6 +165,9 @@ app.get('/patient',function(req,res){
                 else{
                     hist = (JSON.parse(JSON.stringify(rows)));
                     console.log(hist);
+                    for (var i = 0; i < hist.length; i++) {
+                        hist[i].appDateTime = convertDate(hist[i].appDateTime)
+                    }
                     dbConnect.query("select pFname as PName from patient where pid = ?",[patientDetails.ID],function(error,rows,fields){
                         if(!!error)
                             console.log(error);
@@ -396,11 +402,11 @@ app.post('/addToPres',(req,res)=>{
     }) 
 })
 
-app.get('/roomalloc',(req,res)=>{
+app.get('/roomallocate',(req,res)=>{
     res.render('roomAllocate.ejs',{errormsg:null})
 })
 
-app.post('/roomalloc',(req,res)=>{
+app.post('/roomallocate',(req,res)=>{
     var roomDetails = req.body;
     console.log(roomDetails);
     var today = new Date();  
