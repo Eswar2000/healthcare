@@ -282,6 +282,35 @@ body{
 
 /*end of patient.html Page*/
 
+/*start of employeeHome*/
+#b1, #b2 {
+	margin: 20px;
+	padding: 5px;
+	background-color: #66FCF1;
+	font-size: 20px;
+	font-weight: bolder;
+	width: 15%;
+}
+
+#b1 {
+	margin-left: 30%;
+}
+#b2 {
+	margin-right: 30%;
+}
+
+#sb1, #sb2, #sb3, #sb4, #sb5 {
+	background-color: #66FCF1;
+	font-size: 20px;
+	font-weight: bolder;
+	margin: 20px;
+	padding: 5px;
+}
+
+#list1, #list2 {
+	display: none;
+}
+/*end of employeeHome*/
 
 
 /*large devices*/

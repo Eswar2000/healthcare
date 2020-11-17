@@ -77,6 +77,7 @@ app.post('/shplogin/signinpat',function(req,res,next){
                     empDetails = JSON.parse(JSON.stringify(rows[0]))
                     console.log('Employee')
                     console.log(empDetails)
+                    res.redirect('/employeeHome');
                 } 
                 else{
                     console.log("Password Incorrect")
@@ -362,6 +363,10 @@ app.get('/roomAvail',function(req,res){
             })
         }
     })
+})
+
+app.get('/employeeHome',(req,res)=>{
+    res.render('employeeHome.ejs')
 })
 
 app.listen(port,() => {
