@@ -37,15 +37,55 @@ app.get('/logout',function(req,res,next){
 app.post('/shplogin/signinpat',function(req,res,next){
     const userDetails = req.body;
     console.log(userDetails);
-    var qry = "Select pPwd from patient where pID = '"+userDetails.patientID+"'"
-    dbConnect.query(qry,function(error,rows,fields){
-        if(!!error)
-            console.log('Error');
-        if(rows[0] !== null)
-            if(rows[0].pPwd == userDetails.patientPwd){
-                patientDetails = JSON.parse(JSON.stringify(rows[0]))
-            } 
-    })
+    let firstTwoLetters = userDetails.patientID.substring(0,2)
+    if(firstTwoLetters[0] >= 'A' && firstTwoLetters[0] <='M'){
+        dbConnect.query("select * from patientLogin where ID = ?",[userDetails.patientID],function(error,rows,fields){
+            if(!!error)
+                console.log('Username Error');
+            if(rows[0] !== null)
+                if(rows[0].PW == userDetails.patientPwd){
+                    patientDetails = JSON.parse(JSON.stringify(rows[0]))
+                    console.log('Patient')
+                    console.log(patientDetails)
+                } 
+                else{
+                    console.log("Password Incorrect")
+                }
+        })
+    }
+    else if(firstTwoLetters[0] >= 'M' && firstTwoLetters[0] <='Z'){
+        dbConnect.query("select * from doctorLogin where ID = ?",[userDetails.patientID],function(error,rows,fields){
+            if(!!error)
+                console.log('Username Error');
+            if(rows[0] !== null)
+                if(rows[0].PW == userDetails.patientPwd){
+                    doctorDetails = JSON.parse(JSON.stringify(rows[0]))
+                    console.log('Doctor')
+                    console.log(doctorDetails)
+                } 
+                else{
+                    console.log("Password Incorrect")
+                }
+        })
+    }
+    else if(firstTwoLetters == 'em'){
+        dbConnect.query("select * from employeeLogin where ID = ?",[userDetails.patientID],function(error,rows,fields){
+            if(!!error)
+                console.log('Username Error');
+            if(rows[0] !== null)
+                if(rows[0].PW == userDetails.patientPwd){
+                    empDetails = JSON.parse(JSON.stringify(rows[0]))
+                    console.log('Employee')
+                    console.log(empDetails)
+                } 
+                else{
+                    console.log("Password Incorrect")
+                }
+        }) 
+    }
+    else{
+        console.log('No User Found')
+    }
 });
 
 app.post('/shplogin/signuppat',function(req,res){
@@ -147,12 +187,11 @@ app.get('/roomshow',function(req,res){
 })
 
 app.get('/doctorview',function(req,res){
-    let dview
     dbConnect.query("select pID,dID,concat(concat(pFname,' '),pLname) as PName,reason,appDateTime,pGender,pDOB,pPhno from patient natural join appointment where dID = 'N000001';",function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{
-            dView = (JSON.parse(JSON.stringify(rows)));
+            let dView = (JSON.parse(JSON.stringify(rows)));
             for (var i = 0; i < dView.length; i++) {
                 dView[i].appDateTime = convertDate(dView[i].appDateTime)
             }
@@ -226,7 +265,9 @@ app.get('/roomSearch',(req,res)=>{
 
 app.post('/roomSearch',(req,res)=>{
     if(req.body.rID !== ''){
-        dbConnect.query("SELECT * FROM roomSearch WHERE RNO = ? and rOutDate > '2020-10-07'",[req.body.rID],(err,rows)=>{
+        var today = new Date();                     
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        dbConnect.query("SELECT * FROM roomSearch WHERE RNO = ? and rOutDate > ?",[req.body.rID,date],(err,rows)=>{
             if(!!err){
                 console.log(err)
             }
@@ -244,7 +285,9 @@ app.post('/roomSearch',(req,res)=>{
         })
     }
     else if(req.body.pID !== ''){
-        dbConnect.query("SELECT * FROM roomSearch WHERE pID = ? and rOutDate > '2020-10-07'",[req.body.pID],(err,rows)=>{
+        var today = new Date();                     
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        dbConnect.query("SELECT * FROM roomSearch WHERE pID = ? and rOutDate > ?",[req.body.pID,date],(err,rows)=>{
             if(!!err){
                 console.log(err)
             }
@@ -279,6 +322,7 @@ app.post('/addToPres',(req,res)=>{
             console.log(error);
         else{
             console.log('Success');
+            res.render('addToPres.ejs',{PresMsg:String(presDetails.drugName)+' Added'})
         }
     }) 
 })
@@ -305,26 +349,9 @@ app.post('/roomalloc',(req,res)=>{
 
 app.get('/roomAvail',function(req,res){
     var roomhist;
-    dbConnect.query("select * from rooms where rNo not in (select rNo from roomAvail where rOutDate > '2020-10-10')",function(error,rows,fields){
-        if(!!error)
-            console.log("error");
-        else{
-            roomhist = (JSON.parse(JSON.stringify(rows)));
-            console.log(roomhist);
-            res.render('roomAvail.ejs',{
-                roomhist : roomhist
-            })
-        }
-    })
-})
-
-app.get('/roomAlloc',(req,res)=>{
-    res.render('roomAllocate.ejs')
-})
-
-app.get('/roomAvail',function(req,res){
-    var roomhist;
-    dbConnect.query("select * from rooms where rNo not in (select rNo from roomAvail where rOutDate > '2020-10-10')",function(error,rows,fields){
+    var today = new Date();                     
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    dbConnect.query("select * from rooms where rNo not in (select rNo from roomAvail where rOutDate > ?)",[date],function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{
