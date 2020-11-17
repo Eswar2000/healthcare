@@ -26,6 +26,11 @@
       			<div id="collapsable-nav" class="collapse navbar-collapse">
       				<ul id="nav-list" class="nav navbar-nav navbar-right">
 						<li>
+							<a href="/shplogin">
+								<span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">Logout
+							</a>
+						</li>
+						<li>
 							<h3 id="date"></h3>
 							<h5 id="time"></h5>
 						</li>  
@@ -91,6 +96,14 @@
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/script.js"></script>
-
+<script>
+    function myTimer() {
+        let n =  new Date();
+        m = n.getMonth() + 1;
+        document.getElementById("date").innerHTML = n.getDate() + " / " + m + " / " + n.getFullYear();
+        document.getElementById("time").innerHTML = n.toLocaleTimeString()
+    }
+    var myVar = setInterval(myTimer, 1000);
+</script>
 </body>
 </html>

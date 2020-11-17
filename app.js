@@ -24,7 +24,7 @@ app.get("/",(req,res) =>{
     res.render('index.ejs')
 })
 app.get('/shplogin', function(req, res, next) { 
-    res.render('shplogin.ejs')
+    res.render('shplogin.ejs',{errormessage:null})
     });
 
 app.get('/logout',function(req,res,next){
@@ -34,7 +34,7 @@ app.get('/logout',function(req,res,next){
     res.redirect('/')
 })
 
-app.post('/shplogin/signinpat',function(req,res,next){
+app.post('/shplogin',function(req,res,next){
     const userDetails = req.body;
     console.log(userDetails);
     let firstTwoLetters = userDetails.patientID.substring(0,2)
@@ -42,50 +42,67 @@ app.post('/shplogin/signinpat',function(req,res,next){
         dbConnect.query("select * from patientLogin where ID = ?",[userDetails.patientID],function(error,rows,fields){
             if(!!error)
                 console.log('Username Error');
-            if(rows[0] !== null)
+            if(rows.length == 0){
+                res.render('shplogin.ejs',{errormessage: 'No User Found'})
+            }
+            else{
                 if(rows[0].PW == userDetails.patientPwd){
                     patientDetails = JSON.parse(JSON.stringify(rows[0]))
                     console.log('Patient')
                     console.log(patientDetails)
+                    doctorDetails = null
+                    empDetails = null
+                    res.redirect('/patient')
                 } 
                 else{
-                    console.log("Password Incorrect")
+                    res.render('shplogin.ejs',{errormessage: 'Password Incorrect'})
                 }
+            }
         })
     }
     else if(firstTwoLetters[0] >= 'M' && firstTwoLetters[0] <='Z'){
         dbConnect.query("select * from doctorLogin where ID = ?",[userDetails.patientID],function(error,rows,fields){
             if(!!error)
                 console.log('Username Error');
-            if(rows[0] !== null)
+            if(rows.length == 0){
+                res.render('shplogin.ejs',{errormessage: 'No User Found'})
+            }
+            else{
                 if(rows[0].PW == userDetails.patientPwd){
                     doctorDetails = JSON.parse(JSON.stringify(rows[0]))
                     console.log('Doctor')
-                    console.log(doctorDetails)
+                    doctorDetails = doctorDetails.ID
+                    patientDetails = null
+                    empDetails = null
+                    res.redirect('/doctorView')
                 } 
                 else{
-                    console.log("Password Incorrect")
+                    res.render('shplogin.ejs',{errormessage: 'Password Incorrect'})
                 }
+            }
         })
     }
     else if(firstTwoLetters == 'em'){
         dbConnect.query("select * from employeeLogin where ID = ?",[userDetails.patientID],function(error,rows,fields){
             if(!!error)
                 console.log('Username Error');
-            if(rows[0] !== null)
+            if(rows.length == 0){
+                res.render('shplogin.ejs',{errormessage: 'No User Found'})
+            }
+            else{
                 if(rows[0].PW == userDetails.patientPwd){
                     empDetails = JSON.parse(JSON.stringify(rows[0]))
                     console.log('Employee')
                     console.log(empDetails)
+                    patientDetails = null
+                    doctorDetails = null
                     res.redirect('/employeeHome');
                 } 
                 else{
-                    console.log("Password Incorrect")
+                    res.render('shplogin.ejs',{errormessage: 'Password Incorrect'})
                 }
+            }
         }) 
-    }
-    else{
-        console.log('No User Found')
     }
 });
 
@@ -123,22 +140,23 @@ app.post('/shplogin/signuppat',function(req,res){
 });
 
 app.get('/patient',function(req,res){
+    console.log('here')
     var presList;
     var pName;
     var hist; 
-    dbConnect.query("select dID,pID,appDateTime,reason from appointment natural join patient where pid = 'A000001';",function(error,rows,fields){
+    dbConnect.query("select dID,pID,appDateTime,reason from appointment natural join patient where pid = ?",[patientDetails.ID],function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{
             presList = (JSON.parse(JSON.stringify(rows)));
             console.log(presList);
-            dbConnect.query("select pid,did,appDateTime,amount,disease from bill natural join treatment where pID = 'A000001';",function(error,rows,fields){
+            dbConnect.query("select pid,did,appDateTime,amount,disease from bill natural join treatment where pID = ?",[patientDetails.ID],function(error,rows,fields){
                 if(!!error)
                     console.log("error");
                 else{
                     hist = (JSON.parse(JSON.stringify(rows)));
                     console.log(hist);
-                    dbConnect.query("select pFname as PName from patient where pid='A000001';",function(error,rows,fields){
+                    dbConnect.query("select pFname as PName from patient where pid = ?",[patientDetails.ID],function(error,rows,fields){
                         if(!!error)
                             console.log(error);
                         else{
@@ -188,7 +206,8 @@ app.get('/roomshow',function(req,res){
 })
 
 app.get('/doctorview',function(req,res){
-    dbConnect.query("select pID,dID,concat(concat(pFname,' '),pLname) as PName,reason,appDateTime,pGender,pDOB,pPhno from patient natural join appointment where dID = 'N000001';",function(error,rows,fields){
+    console.log(doctorDetails)
+    dbConnect.query("select * from docView where dID = ?;",[doctorDetails],function(error,rows,fields){
         if(!!error)
             console.log("error");
         else{

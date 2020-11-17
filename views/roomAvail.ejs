@@ -94,6 +94,14 @@
 <script src="js/jquery-3.5.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/script.js"></script>
-
+<script>
+    function myTimer() {
+        let n =  new Date();
+        m = n.getMonth() + 1;
+        document.getElementById("date").innerHTML = n.getDate() + " / " + m + " / " + n.getFullYear();
+        document.getElementById("time").innerHTML = n.toLocaleTimeString()
+    }
+    var myVar = setInterval(myTimer, 1000);
+</script>
 </body>
 </html>
