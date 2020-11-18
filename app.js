@@ -377,7 +377,7 @@ app.post('/addToPres',(req,res)=>{
     console.log(presDetails)
     var today = new Date();                     
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var time = today.getHours() + ":" + today.getMinutes() + ":00";
     var dateTime = date+' '+time;
     var qry = "Insert into prescription values('"+presDetails.pID+"','"+dateTime+"','"+presDetails.drugName+"','"+presDetails.dosage+"')";
     dbConnect.query(qry,function(error){
