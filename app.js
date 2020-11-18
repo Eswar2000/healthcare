@@ -130,18 +130,19 @@ app.post('/shplogin/signuppat',function(req,res){
                 if(!!error)
                     console.log('Error');
                 else {
+                    console.log("Inserted into patient table")
                     dbConnect.query("insert into Bill(pID,amount,eID) values(?, 0, 'em00011')",[id],function(err){
                         if(!!err)
                             console.log(err)
-                        else
-                            res.redirect('/shplogin')
+                        else{
+                            res.json({msg : String("Your Patient Id is  : " + id)});
+                            res.status(200).end();
+                        }
                     })
                 }
             })
-            res.redirect('/shplogin')
         }
     })
-    
 });
 
 app.get('/patient',function(req,res){
