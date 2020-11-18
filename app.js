@@ -241,7 +241,11 @@ app.get('/roomshow',function(req,res){
 
 app.get('/doctorview',function(req,res){
     console.log(doctorDetails)
-    dbConnect.query("select * from docView where dID = ?;",[doctorDetails.ID],function(error,rows,fields){
+    var today = new Date();                     
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    dbConnect.query("select * from docView where dID = ? and appDateTime >= ?;",[doctorDetails.ID,dateTime],function(error,rows,fields){
         if(!!error) 
             console.log("error");
         else{
@@ -249,9 +253,20 @@ app.get('/doctorview',function(req,res){
             for (var i = 0; i < dView.length; i++) {
                 dView[i].appDateTime = convertDate(dView[i].appDateTime)
             }
-            res.render('doctorView.ejs',{
-                dView : dView,
-                dName : doctorDetails.Name
+            dbConnect.query("select * from docView where dID = ? and appDateTime < ?;",[doctorDetails.ID,dateTime],function(error,rows,fields){
+                if(!!error) 
+                    console.log("error");
+                else{
+                    let dViewp = (JSON.parse(JSON.stringify(rows)));
+                    for (var i = 0; i < dViewp.length; i++) {
+                        dViewp[i].appDateTime = convertDate(dViewp[i].appDateTime)
+                    }
+                    res.render('doctorView.ejs',{
+                        dView : dView,
+                        dViewp : dViewp,
+                        dName : doctorDetails.Name
+                    })
+                }
             })
         }
     })

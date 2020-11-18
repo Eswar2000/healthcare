@@ -65,6 +65,28 @@
 				</tbody>
 			</table>
 			<br>
+			<h2>Previous appointments</h2>
+				<table>
+					<thead>
+						<td class="cell">Patient ID</td>
+						<td class="cell">Patient Name</td>
+						<td class="cell">Reason</td>
+						<td class="cell">Date</td>
+						<td class="cell">Patient Details</td>
+					</thead>
+					<tbody>
+						<%dViewp.forEach(function(entry) {%>
+						<tr>
+							<td class="cell"><%=entry.pID%></td>
+							<td class="cell"><%=entry.PName%></td>
+							<td class="cell"><%=entry.reason%></td>
+							<td class="cell"><%=String(entry.appDateTime)%></td>
+							<td class="cell">Gender: <%=entry.pGender%><br>Born: <%=String(entry.pDOB).substring(0,10)%><br>Ph: <%=entry.pPhno%></td>
+						</tr>
+						<%});%>
+					</tbody>
+				</table>
+			<br>
 			<form method="GET" action='/addToPres'>
 				<button type="submit" class="btn btn-primary">Create Prescription</button>
 			</form>
