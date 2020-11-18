@@ -40,11 +40,6 @@
       							<span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">Logout
       						</a>
       					</li>
-      					<li>
-      						<a href="#">
-      							<span class="glyphicon glyphicon-info-sign"></span><br class="hidden-xs">About
-      						</a>
-      					</li>
       				</ul>
       				
       			</div>
@@ -129,7 +124,7 @@
 			</div>
 
 			<div id="history">
-				<h3>Charges: <%=hist[0].amount%></h3>
+				<h3>Charges: <%=(hist[0].amount)||String(0)%></h3>
 				<table id="table2">
 					<thead>
 						<td class="cell">Date Of Appointment</td>

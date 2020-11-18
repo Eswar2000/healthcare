@@ -146,7 +146,6 @@ app.post('/shplogin/signuppat',function(req,res){
 });
 
 app.get('/patient',function(req,res){
-    console.log('here')
     var presList;
     var pName;
     var hist; 
@@ -164,11 +163,16 @@ app.get('/patient',function(req,res){
                 if(!!error)
                     console.log("error");
                 else{
-                    hist = (JSON.parse(JSON.stringify(rows)));
-                    console.log(hist);
-                    for (var i = 0; i < hist.length; i++) {
-                        hist[i].appDateTime = convertDate(hist[i].appDateTime)
+                    if(rows.length ==0){
+                        hist = [{amount: '0'}]
                     }
+                    else{
+                        hist = (JSON.parse(JSON.stringify(rows)));
+                        for (var i = 0; i < hist.length; i++) {
+                            hist[i].appDateTime = convertDate(hist[i].appDateTime)
+                        }
+                    }
+                    console.log(hist);
                     dbConnect.query("select pFname as PName from patient where pid = ?",[patientDetails.ID],function(error,rows,fields){
                         if(!!error)
                             console.log(error);
