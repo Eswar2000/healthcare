@@ -286,10 +286,6 @@ function convertDate(dateString) {
 	return String(sDay+'/'+sMonth+'/'+sYear+' '+sHour+':'+sMinute+':'+sSecond)
 }
 
-app.get('/createPres',function(req,res){
-    res.render('createPres.ejs')
-})
-
 app.get('/addToStock',(req,res)=>{
     res.render('addToStock.ejs',{drugMsg: ''});
 })
@@ -324,10 +320,6 @@ app.post('/pharma', (req, res) => {
         }
     });
 });
-
-app.get('/sendPresc',(req,res)=>{
-    res.render('sendPresc.ejs')
-})
 
 app.get('/roomSearch',(req,res)=>{
     res.render('roomSearch.ejs',{errormessage: null})
